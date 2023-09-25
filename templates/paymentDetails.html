@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Details</title>
+    <style>
+        /* Add CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payment Details</h1>
+    <div class="container">
+        <p><strong>Payment Id:</strong> <span th:text="${payment.paymentID}"></span></p>
+        <p><strong>Customer ID:</strong> <span th:text="${payment.customerID}"></span></p>
+        <p><strong>Claim ID:</strong> <span th:text="${payment.claimID}"></span></p>
+        <p><strong>Hospital ID:</strong> <span th:text="${payment.hospitalID}"></span></p>
+        <p><strong>Payment Amount:</strong> <span th:text="${payment.paymentAmount}"></span></p>
+        <p><strong>Payment Date:</strong> <span th:text="${#dates.format(payment.paymentDate, 'yyyy-MM-dd')}"></span></p>
+        <a th:href="@{/payments}" class="btn btn-primary">Back to Payments</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Insurance Packages List</title>
+
+    <!-- Link your CSS file -->
+    <style>
+        /* Inline CSS for specific elements if needed */
+        /* styles.css */
+
+        /* Apply styles to the header */
+        header {
+            background-color: #333;
+            /* Change the background color */
+            color: #fff;
+            /* Change the text color */
+            padding: 10px;
+            /* Add some padding */
+            text-align: center;
+            /* Center-align the text */
+        }
+
+        /* Apply styles to the h1 heading */
+        h1 {
+            font-size: 24px;
+            /* Change the font size */
+            margin-bottom: 10px;
+            /* Add some spacing at the bottom */
+        }
+
+        /* Apply styles to the table */
+        table {
+            width: 100%;
+            /* Make the table take up the full width of its container */
+            border-collapse: collapse;
+            /* Collapse table borders */
+            margin: 20px;
+            /* Add margin around the table */
+        }
+
+        /* Apply styles to table header cells */
+        th {
+            background-color: #333;
+            /* Change the header background color */
+            color: #fff;
+            /* Change the header text color */
+            padding: 10px;
+            /* Add padding to header cells */
+            text-align: left;
+            /* Left-align header text */
+        }
+
+        /* Apply styles to table data cells */
+        td {
+            border: 1px solid #ddd;
+            /* Add a border to data cells */
+            padding: 8px;
+            /* Add padding to data cells */
+        }
+
+        /* Apply styles to hyperlinks */
+        a {
+            text-decoration: none;
+            /* Remove underlines from hyperlinks */
+            color: #007bff;
+            /* Change hyperlink color */
+        }
+
+        /* Apply styles to hyperlinks on hover */
+        a:hover {
+            text-decoration: underline;
+            /* Add underline on hover */
+        }
+
+        /* Apply styles to the select element */
+        select {
+            width: 100%;
+            /* Make the select element take up the full width of its container */
+            padding: 8px;
+            /* Add padding */
+            margin: 5px 0;
+            /* Add margin */
+            border: 1px solid #ddd;
+            /* Add a border */
+        }
+
+        /* Apply styles to text input fields */
+        input[type="text"] {
+            width: 100%;
+            /* Make the input field take up the full width of its container */
+            padding: 8px;
+            /* Add padding */
+            margin: 5px 0;
+            /* Add margin */
+            border: 1px solid #ddd;
+            /* Add a border */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Insurance Packages List</h1>
+    </header>
+
+    <form action="filteredpackages">
+
+        Status:<select name="status">
+			<option name="ALL">ALL</option>
+            <option name="AC">AC</option>
+            <option name="NA">NA</option>
+        </select>
+
+        AgeLimit:<input type="text" name="age">
+        <input type="submit" value="search">
+
+    </form>
+
+    <section>
+        <table id="packageTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Range Start</th>
+                    <th>Range End</th>
+                    <th>Age Limit Start</th>
+                    <th>Age Limit End</th>
+                    <th>Action</th> <!-- Add a new column for the button -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the insurance packages and display them in rows -->
+                <tr th:each="insurancePackage : ${insurancePackages}">
+                    <td th:text="${insurancePackage.inspId}"></td>
+                    <td th:text="${insurancePackage.inspTitle}"></td>
+                    <td th:text="${insurancePackage.inspDescription}"></td>
+                    <td th:text="${insurancePackage.inspStatus}"></td>
+                    <td th:text="${insurancePackage.inspRangeStart}"></td>
+                    <td th:text="${insurancePackage.inspRangeEnd}"></td>
+                    <td th:text="${insurancePackage.inspAgeLimitStart}"></td>
+                    <td th:text="${insurancePackage.inspAgeLimitEnd}"></td>
+                    <td>
+                        <!-- Add a button that links to the controller with the insurance ID as a parameter -->
+                        <a th:href="@{'/view-insurance/' + ${insurancePackage.inspId}}"
+                            class="btn btn-primary">View</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <!-- Add footer content if needed -->
+    </footer>
+    <div align="center"><a class="btn btn-primary" th:href="@{'/dashboard'}">Back</a></div>
+</body>
+
+</html>

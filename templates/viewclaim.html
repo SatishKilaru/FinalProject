@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Claims Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+        }
+        h1 {
+            color: #333;
+        }
+        strong {
+            font-weight: bold;
+        }
+        .claim-details {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .claim-details strong {
+            width: 200px;
+            display: inline-block;
+        }
+        .claim-details span {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Claims Details</h1>
+
+        <div class="claim-details">
+            <strong>Claim ID:</strong>
+            <span th:text="${claim.clamId}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Source:</strong>
+            <span th:text="${claim.clamSource}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Type:</strong>
+            <span th:text="${claim.clamType}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Date:</strong>
+            <span th:text="${claim.clamDate}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Amount Requested:</strong>
+            <span th:text="${claim.clamAmountRequested}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim IPLC ID:</strong>
+            <span th:text="${claim.clamIplcId}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Processed Amount:</strong>
+            <span th:text="${claim.clamProcessedAmount}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Processed Date:</strong>
+            <span th:text="${claim.clamProcessedDate}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Processed By:</strong>
+            <span th:text="${claim.clamProcessedBy}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Remarks:</strong>
+            <span th:text="${claim.clamRemarks}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Status:</strong>
+            <span th:text="${claim.clamStatus}"></span>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Claim Form</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+    /* Additional custom styles */
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .tab.active-tab {
+        background-color: #0056b3;
+    }
+
+    .form-box {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style form inputs */
+    input[type="text"], input[type="date"], input[type="tel"], input[type="number"], input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 16px;
+    }
+
+    /* Style buttons */
+    .form-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .form-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Show submission message in green */
+    #submission-message {
+        color: #009900;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    </style>
+    
+    <!-- Add Bootstrap JS (Optional) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+    let currentTab = 0;
+
+    function showTab(tabIndex) {
+        const formParts = document.querySelectorAll('.form-part');
+        formParts[currentTab].style.display = 'none';
+        formParts[tabIndex].style.display = 'block';
+        
+        // Remove the 'active-tab' class from all tab buttons
+        const tabButtons = document.querySelectorAll('.tab');
+        tabButtons.forEach(button => button.classList.remove('active-tab'));
+        
+        // Add the 'active-tab' class to the current tab button
+        tabButtons[tabIndex].classList.add('active-tab');
+        
+        currentTab = tabIndex;
+    }
+
+    function nextTab(tabIndex) {
+        const form = document.getElementById(`form-part-${tabIndex + 1}`);
+        if (form.checkValidity()) {
+            showTab(tabIndex + 1);
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    }
+
+    function prevTab(tabIndex) {
+        showTab(tabIndex - 1);
+    }
+     function addSelectedSkill() {
+    const availableSkillsSelect = document.getElementById('availableProcedures');
+    const selectedSkillsSelect = document.getElementById('selectedProcedures');
+    
+    // Loop through the selected options in "Procedures" and move them to "Selected Procedures"
+    for (let i = 0; i < availableSkillsSelect.options.length; i++) {
+        const option = availableSkillsSelect.options[i];
+        if (option.selected) {
+            const newOption = document.createElement('option');
+            newOption.value = option.value;
+            newOption.text = option.text;
+            selectedSkillsSelect.appendChild(newOption);
+            availableSkillsSelect.remove(i);
+            i--; // Decrement the counter because options have been removed
+        }
+    }
+}
+
+function removeSelectedSkill() {
+    const selectedSkillsSelect = document.getElementById('selectedProcedures');
+    const availableSkillsSelect = document.getElementById('availableProcedures');
+    
+    // Loop through the selected options in "Selected Procedures" and move them back to "Procedures"
+    for (let i = 0; i < selectedSkillsSelect.options.length; i++) {
+        const option = selectedSkillsSelect.options[i];
+        if (option.selected) {
+            const newOption = document.createElement('option');
+            newOption.value = option.value;
+            newOption.text = option.text;
+            availableSkillsSelect.appendChild(newOption);
+            selectedSkillsSelect.remove(i);
+            i--; // Decrement the counter because options have been removed
+        }
+    }
+}
+
+    </script>
+</head>
+<body>
+    <center><h2 style="color: red;">Insurance Claim Form</h2></center>
+    <div class="form-container">
+        <div class="tabs">
+            <button class="tab active-tab" onclick="showTab(0)">Patient Details</button>
+            <button class="tab" onclick="showTab(1)">Patient History</button>
+            <button class="tab" onclick="showTab(2)">Procedures Taken</button>
+        </div>
+        <div class="form-box">
+            <div class="form-part">
+                <form th:action="@{/apply-claim}" id="form-part-1" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="PatientId">Patient ID:</label>
+                        <input type="text" class="form-control" id="PatientId" name="PatientId" placeholder="Enter Patient ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PatientName">Patient Name:</label>
+                        <input type="text" class="form-control" id="PatientName" name="PatientName" placeholder="Enter Patient Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="DateOfBirth">Date of Birth:</label>
+                        <input type="date" class="form-control" id="DateOfBirth" name="dateOfBirth" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender">Gender:</label>
+                        <input type="text" class="form-control" id="Gender" name="gender" placeholder="Enter Gender" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactNumber">Contact Number:</label>
+                        <input type="tel" class="form-control" id="ContactNumber" name="contactNumber" placeholder="Enter Contact Number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Address:</label>
+                        <input type="text" class="form-control" id="Address" name="address" placeholder="Enter Address" required>
+                    </div>
+                    <button class="form-button" type="button" onclick="nextTab(0)">Next</button>
+              
+            </div>
+            <div class="form-part" style="display: none;">
+                <h2>Patient History</h2>
+              
+                    <div class="form-group">
+                        <label for="joinedDate">Date joined:</label>
+                        <input type="date" class="form-control" id="joinedDate" name="joinedDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="disease">Disease/Problem:</label>
+                        <input type="text" class="form-control" id="disease" name="disease" placeholder="Disease/Problem" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="diagnosis">Diagnosis:</label>
+                        <input type="text" class="form-control" id="diagnosis" name="diagnosis" placeholder="Enter Diagnosis" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="treatment">Treatment:</label>
+                        <input type="text" class="form-control" id="treatment" name="treatment" placeholder="Enter Treatment" required>
+                    </div>
+                    <button class="form-button" type="button" onclick="prevTab(2)">Previous</button>
+                    <button class="form-button" type="button" onclick="nextTab(1)">Next</button>
+                
+            </div>
+            <div class="form-part" style="display: none;">
+                <h2>Procedures Taken</h2>
+               
+                    <div class="form-group">
+                        <label for="roomCharges">Room Charges:</label>
+                        <input type="number" class="form-control" id="roomCharges" name="roomCharges" placeholder="Enter Room Charges" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicineBill">Medicine Bill:</label>
+                        <input type="number" class="form-control" id="medicineBill" name="medicineBill" placeholder="Enter Medicine Bill" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Upload Documents:</label>
+                        <input type="file" class="form-control" id="file" name="file">
+                    </div>
+                    <button class="form-button" type="button" onclick="prevTab(1)">Previous</button>
+                    <button class="form-button" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

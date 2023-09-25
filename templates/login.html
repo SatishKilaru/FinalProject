@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        letter-spacing: 1px;
+        background-color: #f0f0f0; /* Background color */
+      }
+
+      .login-form-container {
+        position: relative;
+        width: 400px;
+        height: 470px;
+        max-width: 400px;
+        max-height: 470px;
+        background: #ffffff; /* Form background color */
+        border-radius: 50px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-top: 70px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow */
+      }
+
+      .login-form-container::before,
+      .login-form-container::after {
+        position: absolute;
+        width: 120%;
+        height: 120%;
+        content: '';
+        background-image: conic-gradient(transparent, transparent, transparent, #00ccff); /* Border gradient color */
+        animation: rotate-border 6s linear infinite;
+        border-radius: 50%;
+      }
+
+      .login-form-container::after {
+        animation-delay: -3s;
+      }
+
+      @keyframes rotate-border {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .login-form {
+        position: absolute;
+        content: '';
+        background-color: #ffffff; /* Form background color */
+        border-radius: 50px 5px;
+        inset: 5px;
+        padding: 50px 40px;
+        z-index: 10;
+        color: #333; /* Text color */
+        font-family: Arial, sans-serif; /* Font family */
+      }
+
+      h2 {
+        font-size: 30px; /* Heading font size */
+        font-weight: 600;
+        text-align: center;
+        color: #333; /* Heading text color */
+        margin-bottom: 20px;
+      }
+
+      .input-group {
+        margin-top: 20px; /* Spacing between input groups */
+        position: relative;
+      }
+
+      .input-text {
+        width: 100%;
+        height: 40px; /* Input height */
+        background: #f8f8f8; /* Input background color */
+        border: none;
+        outline: none;
+        border-radius: 5px; /* Input border radius */
+        font-size: 18px; /* Input font size */
+        padding: 10px;
+        color: #333; /* Input text color */
+      }
+
+      ::placeholder {
+        font-size: 16px; /* Placeholder font size */
+        color: #999; /* Placeholder text color */
+        letter-spacing: 1px;
+      }
+
+      .fa {
+        font-size: 20px;
+      }
+
+      #login-button {
+        position: relative;
+        width: 100%;
+        margin-top: 30px; /* Spacing above the button */
+      }
+
+      #login-button button {
+        width: 100%;
+        height: 40px; /* Button height */
+        text-decoration: none;
+        font-family: Arial, sans-serif; /* Button font family */
+        z-index: 10;
+        cursor: pointer;
+        font-size: 20px; /* Button font size */
+        letter-spacing: 2px;
+        border: none;
+        border-radius: 5px; /* Button border radius */
+        background-color: #00ccff; /* Button background color */
+        color: #fff; /* Button text color */
+      }
+
+      .footer {
+        margin-top: 20px; /* Spacing above the footer */
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px; /* Footer link font size */
+        color: #333; /* Footer link text color */
+      }
+
+      .footer a {
+        text-decoration: none;
+        cursor: pointer;
+        color: #00ccff; /* Footer link hover color */
+      }
+
+      .glow-icon {
+        text-shadow: 0 0 10px #00ccff;
+      }
+
+      .error-message {
+        color: red; /* Error message text color */
+        margin-top: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-form-container">
+      <form action="#" th:action="@{/adminLogin}" th:object="${login}" method="post">
+        <div class="login-form">
+          <h2>Login</h2>
+          <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="text" placeholder="Admin ID" class="input-text" autocomplete="off" th:field="*{user_name}" />
+          </div>
+          <div class="input-group">
+            <i class="fa fa-unlock-alt"></i>
+            <input type="password" placeholder="Password" class="input-text" autocomplete="off" th:field="*{password}" />
+          </div>
+          <div class="button-group" id="login-button">
+            <button type="submit">Submit</button>
+          </div>
+          <div class="error-message" th:if="${errorMessage}">
+            <!-- Display login error message here -->
+            <span th:text="${errorMessage}"></span>
+          </div>
+          <div class="footer">
+            <a id="btn2" th:href="@{/forgotpassword}">Forgot password..?</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Include Thymeleaf JavaScript dependencies if needed -->
+    <!-- Example: <script src="https://cdnjs.cloudflare.com/ajax/libs/thymeleaf/3.0.12.RELEASE/thymeleaf.js"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#btn2').click(function () {
+          window.location.href = 'forgotpassword';
+        });
+      });
+    </script>
+  </body>
+</html>

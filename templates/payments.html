@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payments</title>
+    <style>
+        /* Add CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <center><u><h1>Payments</h1></u></center>
+    <table>
+        <tr>
+            <th>Payment Id</th>
+            <th>CustomerID</th>
+            <th>ClaimID</th>
+            <th>HospitalID</th>
+            <th>Payment Amount</th>
+            <th>Payment Date</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="payment : ${payments}">
+            <td th:text="${payment.paymentID}"></td>
+            <td th:text="${payment.customerID}"></td>
+            <td th:text="${payment.claimID}"></td>
+            <td th:text="${payment.hospitalID}"></td>
+            <td th:text="${payment.paymentAmount}"></td>
+            <td th:text="${#dates.format(payment.paymentDate, 'yyyy-MM-dd')}"></td>
+            <td><a th:href="@{'/view/' + ${payment.paymentID}}">View</a></td>
+        </tr>
+    </table>
+</body>
+</html>

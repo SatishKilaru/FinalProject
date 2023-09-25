@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Settlement Page</title>
+<style>
+/* Add your CSS styles here */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	background-color: #007bff;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+
+.claim-details {
+	max-width: 600px;
+	margin: 20px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.claim-details strong {
+	font-weight: bold;
+}
+
+.back-button {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.back-button button {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.back-button button:hover {
+	background-color: #0056b3;
+}
+
+.button-container {
+	display: flex;
+	justify-content: space-between;
+}
+</style>
+</head>
+<body>
+	<h1>Claim Settlement Details</h1>
+	<div class="claim-details">
+		<strong>Claim Id:</strong> <span th:text="${claim.clam_id}"></span><br>
+		<strong>Claim Source:</strong> <span th:text="${claim.clam_source}"></span><br>
+		<strong>Claim Type:</strong> <span th:text="${claim.clam_type}"></span><br>
+		<strong>Claim Date:</strong> <span th:text="${claim.clam_date}"></span><br>
+		<strong>Claim Amount Requested:</strong> <span
+			th:text="${claim.clam_amount_requested}"></span><br> <strong>Claim
+			IPLC Id:</strong> <span th:text="${claim.clam_iplc_id}"></span><br> <strong>Claim
+			Processed Amount:</strong> <span th:text="${claim.clam_processed_amount}"></span><br>
+		<strong>Claim Processed Date:</strong> <span
+			th:text="${claim.clam_processed_Date}"></span><br> <strong>Claim
+			Processed By:</strong> <span th:text="${claim.clam_processed_by}"></span><br>
+		<strong>Claim Remarks:</strong> <span th:text="${claim.clam_remarks}"></span><br>
+		<strong>Claim Status:</strong> <span th:text="${claim.clam_status}"></span><br>
+	</div>
+
+	<div class="back-button">
+		<form method="get" action="/claimsss" style="display: inline-block;">
+			<button type="submit">Back to Claims Page</button>
+		</form>
+		<form method="post" action="/confirm-process"
+			style="display: inline-block;">
+			<input type="hidden" name="claim_id" th:value="${claim.clam_id}" />
+			<button type="submit">Confirm Process</button>
+		</form>
+
+
+	</div>
+
+
+</body>
+</html>
