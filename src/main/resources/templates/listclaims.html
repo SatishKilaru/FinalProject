@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Employee List</title>
+	<style>
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			border: 1px solid #ccc;
+			text-align: left;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		tr:hover {
+			background-color: #e0e0e0;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+   .header {
+	background-color: blue;
+  color:white;
+  text-align: center;
+  padding: 10px;
+  position: fixed; /* Fixed position at the top */
+  top: 0; /* Stick to the top of the viewport */
+  left: 0; /* Stick to the left */
+  width: 100%; /* Full width */
+  z-index: 1000;
+	
+}
+
+    </style>
+  </head>
+  <body>
+  <div class="header bg-dark text-white py-3">
+			<h1 class="text-center">IMS Hospital</h1>
+		</div>	<h1>Claims List</h1>
+	<br>
+	<br><center>
+	<form action="getFilteredClaims" method="get" id="filterForm">
+		<label><b>Status :</b>
+			<select name="status" id="statusSelect" >
+				<option>select</option>
+				<option>APPR</option>
+				<option>REJT</option>
+			</select>
+		</label>
+		<input type="submit" value="Filter" style="color:white;background-color:blue">
+	</form><br>
+	<form action="excel" method="post" id="excelForm">
+		<!-- Add a hidden input field to store the selected option -->
+		<input type="hidden" name="selectedStatus" id="selectedStatus" value="">
+		<input type="submit" value="Download Excel" onclick="updateSelectedStatus()" style="color:white;background-color:blue">
+	</form></center>
+	<br>
+	<table border="1">
+		<tr>
+			<th>Claim Id</th>
+			<th>Claim Soucr</th>
+			<th>Claim Type</th>
+			<th>Claim Date</th>
+			<th>Claim Requested Amount</th>
+			<th>Claim Iplc Id</th>
+			<th>Claim ProcessedAmount</th>
+			<th>Claim Processed Date</th>
+			<th>Claim Processed By</th>
+			<th>Claim Remarks</th>
+			<th>Claim Status</th><th>View</th>
+		</tr>
+		<tr th:each="emp : ${claims}">
+			<td class="align-middle" th:text="${emp.clamId}"></td>
+			<td class="align-middle" th:text="${emp.clamSource}"></td>
+			<td class="align-middle" th:text="${emp.clamType}"></td>
+			<td class="align-middle" th:text="${emp.clamDate}"></td>
+			<td class="align-middle" th:text="${emp.clamAmountRequested}"></td>
+			<td class="align-middle" th:text="${emp.clamIplcId}"></td>
+			<td class="align-middle" th:text="${emp.clamProcessedAmount}"></td>
+			<td class="align-middle" th:text="${emp.clamProcessedDate}"></td>
+			<td class="align-middle" th:text="${emp.clamProcessedBy}"></td>
+			<td class="align-middle" th:text="${emp.clamRemarks}"></td>
+			<td class="align-middle" th:text="${emp.clamStatus}"></td>
+<td class="align-middle">
+    <form action="viewClaim" method="post">
+        <input type="hidden" name="clamId" th:value="${emp.clamId}">
+        <button type="submit" style="color:white;background-color:blue"><b>View</b></button>
+    </form>
+</td>
+		</tr>
+		<tr th:if="${claims.isEmpty()}">
+			<td class="text-center" colspan="5">No Records found. Add some...!</td>
+		</tr>
+	</table>
+	     <div align="center"><a class="btn btn-primary" th:href="@{'/index'}"><b>Back To DashBoard</b></a></div>
+	<script>
+		function updateSelectedStatus() {
+			// Get the selected option value
+			const statusSelect = document.getElementById('statusSelect');
+			const selectedOption = statusSelect.options[statusSelect.selectedIndex].value;
+
+			// Update the hidden input field with the selected option value
+			document.getElementById('selectedStatus').value = selectedOption;
+		}
+	</script>
+</body>
+
+</html>

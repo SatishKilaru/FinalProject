@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Claims Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+       
+        .claim-details {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+        }
+        .claim-details strong {
+            width: 200px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        .claim-details span {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+ <div  style="background-color:blue;color:white;height:80px;">
+			<h1 class="text-center">IMS Hospital</h1>
+		</div><br><br><br>
+    <div class="container">
+       
+
+        <div class="claim-details">
+            <strong>Claim ID:</strong>
+            <span th:text="${claim.clamId}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Source:</strong>
+            <span th:text="${claim.clamSource}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Type:</strong>
+            <span th:text="${claim.clamType}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Date:</strong>
+            <span th:text="${claim.clamDate}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Amount Requested:</strong>
+            <span th:text="${claim.clamAmountRequested}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim IPLC ID:</strong>
+            <span th:text="${claim.clamIplcId}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Processed Amount:</strong>
+            <span th:text="${claim.clamProcessedAmount}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Processed Date:</strong>
+            <span th:text="${claim.clamProcessedDate}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Processed By:</strong>
+            <span th:text="${claim.clamProcessedBy}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Remarks:</strong>
+            <span th:text="${claim.clamRemarks}"></span>
+        </div>
+        
+        <div class="claim-details">
+            <strong>Claim Status:</strong>
+            <span th:text="${claim.clamStatus}"></span>
+        </div>
+    </div>
+     <div align="center"><a class="btn btn-primary" th:href="@{'/index'}"><b>Back To DashBoard</b></a></div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
