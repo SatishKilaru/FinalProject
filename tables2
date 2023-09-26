@@ -1,0 +1,519 @@
+create table checkdetails(
+username varchar(40),
+	password varchar(20)
+)
+drop table checktable
+insert into checkdetails
+values('satishkilaru24@gmail.com','Satish@24')
+
+
+select * from checkdetails
+
+select * from claims
+drop table Claims
+-- Create the table for the Claims model
+CREATE TABLE Claims (
+    clam_id SERIAL PRIMARY KEY,
+    clam_source VARCHAR(255),
+    clam_type VARCHAR(255),
+    clam_date DATE,
+    clam_amount_requested DOUBLE PRECISION,
+    clam_iplc_id INTEGER,
+    clam_processed_amount DOUBLE PRECISION,
+    clam_processed_date DATE,
+    clam_processed_by INTEGER,
+    clam_remarks VARCHAR(255),
+    clam_status VARCHAR(255)
+);
+
+INSERT INTO Claims (clam_source, clam_type, clam_date, clam_amount_requested, clam_iplc_id, clam_processed_amount, clam_processed_date, clam_processed_by, clam_remarks, clam_status)
+VALUES
+    ('Hospital A', 'Medical', '2023-09-15', 1200.00, 1, 0.00, '2023-09-16', 123, 'Claim rejected due to insufficient documentation', 'Rejected'),
+    ('Clinic B', 'Dental', '2023-09-16', 800.00, 2, 0.00, '2023-09-17', 456, 'Claim processed successfully', 'Processed'),
+    ('Pharmacy C', 'Prescription', '2023-09-17', 300.00, 3, 250.00, '2023-09-18', 789, 'Claim processed and amount disbursed', 'Processed'),
+    ('Hospital D', 'Surgical', '2023-09-18', 3500.00, 4, 0.00, '2023-09-19', 234, 'Claim rejected due to ineligible procedure', 'Rejected'),
+    ('Clinic E', 'Medical', '2023-09-19', 950.00, 5, 0.00, '2023-09-20', 567, 'Claim rejected due to policy limitations', 'Rejected'),
+    ('Lab F', 'Diagnostic', '2023-09-20', 600.00, 6, 480.00, '2023-09-21', 890, 'Claim processed and amount credited', 'Processed'),
+    ('Hospital G', 'Medical', '2023-09-21', 1800.00, 7, 0.00, '2023-09-22', 345, 'Claim rejected due to pre-existing condition', 'Rejected'),
+    ('Clinic H', 'Dental', '2023-09-22', 750.00, 8, 0.00, '2023-09-23', 678, 'Claim processed successfully', 'Processed'),
+    ('Pharmacy I', 'Prescription', '2023-09-23', 450.00, 9, 360.00, '2023-09-24', 901, 'Claim processed and amount disbursed', 'Processed'),
+    ('Hospital J', 'Surgical', '2023-09-24', 2800.00, 10, 0.00, '2023-09-25', 123, 'Claim rejected due to documentation error', 'Rejected');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE InsurancePackages (
+    insp_id SERIAL PRIMARY KEY,
+    insp_title VARCHAR(255) NOT NULL,
+    insp_desc TEXT,
+    insp_status VARCHAR(2) NOT NULL,
+    insp_range_start DECIMAL(10, 2) NOT NULL,
+    insp_range_end DECIMAL(10, 2) NOT NULL,
+    insp_agelimit_start INT NOT NULL,
+    insp_agelimit_end INT NOT NULL
+);
+
+
+
+INSERT INTO InsurancePackages (insp_title, insp_desc, insp_status, insp_range_start, insp_range_end, insp_agelimit_start, insp_agelimit_end)
+VALUES
+('Basic Health Insurance', 'Covers essential medical expenses', 'Ac', 1000, 10000, 18, 65),
+('Term Life Insurance', 'Coverage for a fixed term with payout on death', 'Ac', 10000, 100000, 18, 75),
+('Health Insurance Plan A', 'Comprehensive health coverage', 'Ac', 2000, 15000, 20, 60),
+('Family Health Insurance', 'Coverage for the whole family', 'Ac', 5000, 20000, 0, 70),
+('Senior Health Insurance', 'Specialized coverage for seniors', 'Ac', 5000, 30000, 65, 90),
+('Student Health Insurance', 'Coverage for students', 'Ac', 1000, 8000, 18, 30);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE claim_s (
+    clam_id int PRIMARY KEY,
+    clam_source character(4),
+    clam_type character(4),
+    clam_date date,
+    clam_amount_requested numeric,
+    clam_iplc_id int,
+    clam_processed_amount numeric(8,2),
+    clam_processed_Date date,
+    clam_processed_by int,
+    clam_remarks varchar(1000),
+    clam_status character(4)
+);
+
+select * from claim_s
+
+
+INSERT INTO claim_s (clam_id, clam_source, clam_type, clam_date, clam_amount_requested, clam_iplc_id, clam_processed_amount, clam_processed_Date, clam_processed_by, clam_remarks, clam_status)
+VALUES
+    (101, 'INDV', 'DRCT', '2023-09-01', 100000.00, 101, 90000.50, '2023-09-02', 201, 'Approved', 'APPR'),
+    (102, 'HSPT', 'REIM', '2023-09-03', 150000.75, 102, 140000.25, '2023-09-04', 202, 'Rejected', 'REJT'),
+    (103, 'INDV', 'DRCT', '2023-09-05', 80000.50, 103, 78000.25, '2023-09-06', 203, 'Under Process', 'UPRO'),
+    (104, 'HSPT', 'REIM', '2023-09-07', 120000.25, 104, 110000.75, '2023-09-08', 204, 'Rejected', 'REJT'),
+    (105, 'INDV', 'DRCT', '2023-09-09', 95000.75, 105, 92000.25, '2023-09-10', 205, 'Approved', 'APPR'),
+    (106, 'HSPT', 'REIM', '2023-09-11', 110000.50, 106, 105000.25, '2023-09-12', 206, 'Rejected', 'REJT'),
+    (107, 'INDV', 'DRCT', '2023-09-13', 75000.25, 107, 72000.75, '2023-09-14', 207, 'Approved', 'APPR'),
+    (108, 'HSPT', 'REIM', '2023-09-15', 130000.75, 108, 125000.25, '2023-09-16', 208, 'Under Process', 'UPRO'),
+    (109, 'INDV', 'DRCT', '2023-09-17', 85000.50, 109, 82000.25, '2023-09-18', 209, 'Approved', 'APPR'),
+    (110, 'HSPT', 'REIM', '2023-09-19', 160000.25, 110, 150000.75, '2023-09-20', 210, 'Rejected', 'REJT'),
+    (111, 'INDV', 'DRCT', '2023-09-21', 90000.75, 111, 87000.25, '2023-09-22', 211, 'Approved', 'APPR'),
+    (112, 'HSPT', 'REIM', '2023-09-23', 140000.50, 112, 135000.25, '2023-09-24', 212, 'Rejected', 'REJT'),
+    (113, 'INDV', 'DRCT', '2023-09-25', 78000.25, 113, 75000.75, '2023-09-26', 213, 'Approved', 'APPR'),
+    (114, 'HSPT', 'REIM', '2023-09-27', 125000.75, 114, 120000.25, '2023-09-28', 214, 'Rejected', 'REJT'),
+    (115, 'INDV', 'DRCT', '2023-09-29', 110000.50, 115, 105000.25, '2023-09-30', 215, 'Approved', 'APPR'),
+    (116, 'INDV', 'DRCT', '2023-10-01', 92000.75, 116, 90000.25, '2023-10-02', 216, 'Under Process', 'UPRO'),
+    (117, 'HSPT', 'REIM', '2023-10-03', 115000.50, 117, 112000.25, '2023-10-04', 217, 'Under Process', 'UPRO'),
+    (118, 'INDV', 'DRCT', '2023-10-05', 79000.25, 118, 77000.75, '2023-10-06', 218,'Approved', 'APPR'),
+    (119, 'HSPT', 'REIM', '2023-10-07', 130000.75, 119, 126000.25, '2023-10-08', 219, 'Under Process', 'UPRO'),
+    (120, 'INDV', 'DRCT', '2023-10-09', 88000.50, 120, 86000.25, '2023-10-10', 220, 'Rejected', 'REJT');
+
+
+	
+	
+	
+	CREATE TABLE claim_bills (
+    clam_id int,
+    clbl_billindex smallint,
+    clbl_document_title varchar(100),
+    clbl_document_path varchar(255),
+    clbl_claim_amount numeric(8,2),
+    clbl_processed_amount numeric(8,2),
+    clbl_processed_Date date,
+    clbl_processed_by int,
+    clbl_remarks varchar(1000),
+    clbl_status character(10)
+);
+
+
+select * from ajayusers
+
+select * from claims
+
+INSERT INTO claim_bills (clam_id, clbl_billindex, clbl_document_title, clbl_document_path, clbl_claim_amount, clbl_processed_amount, clbl_processed_Date, clbl_processed_by, clbl_remarks, clbl_status)
+VALUES
+    (1, 1, 'Document 1', '/path/to/document1.pdf', 100000.50, 90000.25, '2023-09-23', 101, 'Approved', 'FULL'),
+    (1, 2, 'Document 2', '/path/to/document2.pdf', 75000.25, 70000.50, '2023-09-24', 102, 'Partial Approval', 'PART'),
+    (2, 1, 'Document 3', '/path/to/document3.pdf', 200000.00, 190000.75, '2023-09-25', 103, 'Approved', 'FULL'),
+    (2, 2, 'Document 4', '/path/to/document4.pdf', 300000.75, 295000.25, '2023-09-26', 104, 'Rejected', 'RJCT'),
+    (3, 1, 'Document 5', '/path/to/document5.pdf', 150000.25, 145000.75, '2023-09-27', 105, 'Partial Approval', 'PART'),
+    (3, 2, 'Document 6', '/path/to/document6.pdf', 90000.50, 85000.25, '2023-09-28', 106, 'Approved', 'FULL'),
+    (4, 1, 'Document 7', '/path/to/document7.pdf', 50000.25, 49000.75, '2023-09-29', 107, 'Rejected', 'RJCT'),
+    (4, 2, 'Document 8', '/path/to/document8.pdf', 80000.75, 79500.25, '2023-09-30', 108, 'Approved', 'FULL'),
+    (5, 1, 'Document 9', '/path/to/document9.pdf', 120000.50, 115000.25, '2023-10-01', 109, 'Approved', 'FULL'),
+    (5, 2, 'Document 10', '/path/to/document10.pdf', 450000.25, 420000.75, '2023-10-02', 110, 'Partial Approval', 'PART');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Payments Table
+CREATE TABLE Payments (
+  PaymentID VARCHAR(10),
+  CustomerID VARCHAR(10),
+  ClaimID VARCHAR(10),
+  HospitalID VARCHAR(10),
+  PaymentAmount INT,
+  PaymentDate DATE
+);
+
+//Insert Quries
+INSERT INTO Payments (PaymentID, CustomerID, ClaimID, HospitalID, PaymentAmount, PaymentDate)
+VALUES
+  ('P1', 'C1', 'CL1', 'H1', 1000, '2023-09-01'),
+  ('P2', 'C2', 'CL2', 'H2', 1500, '2023-09-02'),
+  ('P3', 'C3', 'CL3', 'H3', 2000, '2023-09-03'),
+  ('P4', 'C4', 'CL4', 'H4', 1200, '2023-09-04'),
+  ('P5', 'C5', 'CL5', 'H5', 1800, '2023-09-05'),
+  ('P6', 'C6', 'CL6', 'H6', 900, '2023-09-06'),
+  ('P7', 'C7', 'CL7', 'H7', 2200, '2023-09-07'),
+  ('P8', 'C8', 'CL8', 'H8', 1300, '2023-09-08'),
+  ('P9', 'C9', 'CL9', 'H9', 1700, '2023-09-09'),
+  ('P10', 'C10', 'CL10', 'H10', 1100, '2023-09-10');
+
+
+CREATE TABLE Settlements (
+    stmt_id serial PRIMARY KEY,
+    tran_id int,
+    payment_Processed_date date,
+    claim_id int,
+    tran_amnt double precision
+);
+ALTER TABLE Settlements
+RENAME COLUMN tran_date TO payment_Processed_date;
+select * from claims
+select * from Settlements
+select * from Transactionss
+CREATE TABLE Transactionss (
+    tran_id int PRIMARY KEY,
+    tran_date date,
+    claim_id int
+);
+-- Insert data with claim_id ranging from 101 to 121
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (1, '2023-09-01', 101);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (2, '2023-09-02', 102);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (3, '2023-09-03', 103);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (4, '2023-09-04', 104);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (5, '2023-09-05', 105);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (6, '2023-09-06', 106);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (7, '2023-09-07', 107);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (8, '2023-09-08', 108);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (9, '2023-09-09', 109);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (10, '2023-09-10', 110);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (11, '2023-09-11', 111);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (12, '2023-09-12', 112);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (13, '2023-09-13', 113);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (14, '2023-09-14', 114);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (15, '2023-09-15', 115);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (16, '2023-09-16', 116);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (17, '2023-09-17', 117);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (18, '2023-09-18', 118);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (19, '2023-09-19', 119);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (20, '2023-09-20', 120);
+
+CREATE TABLE claimsss (
+    clam_id int PRIMARY KEY,
+    clam_source character(4),
+    clam_type character(4),
+    clam_date date,
+    clam_amount_requested numeric,
+    clam_iplc_id int,
+    clam_processed_amount numeric(8,2),
+    clam_processed_Date date,
+    clam_processed_by int,
+    clam_remarks varchar(1000),
+    clam_status character(4)
+);
+
+
+ALTER TABLE claimsss
+ADD COLUMN pay_status VARCHAR(8);
+ALTER TABLE claimsss
+ALTER COLUMN pay_status TYPE VARCHAR(12);
+
+UPDATE claimsss
+SET pay_status = 'Pending...';
+
+CREATE TABLE Transactionss (
+    tran_id int PRIMARY KEY,
+    tran_date date,
+    claim_id int
+);
+
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (1, '2023-09-01', 101);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (2, '2023-09-02', 102);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (3, '2023-09-03', 103);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (4, '2023-09-04', 104);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (5, '2023-09-05', 105);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (6, '2023-09-06', 106);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (7, '2023-09-07', 107);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (8, '2023-09-08', 108);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (9, '2023-09-09', 109);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (10, '2023-09-10', 110);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (11, '2023-09-11', 111);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (12, '2023-09-12', 112);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (13, '2023-09-13', 113);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (14, '2023-09-14', 114);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (15, '2023-09-15', 115);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (16, '2023-09-16', 116);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (17, '2023-09-17', 117);
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (18, '2023-09-18', 118);
+
+INSERT INTO Transactionss (tran_id, tran_date, claim_id) VALUES (2, '2023-09-02', 102);
+
+INSERT INTO claimsss (clam_id, clam_source, clam_type, clam_date, clam_amount_requested, clam_iplc_id, clam_processed_amount, clam_processed_Date, clam_processed_by, clam_remarks, clam_status,pay_status)
+VALUES
+    (101, 'INDV', 'DRCT', '2023-09-01', 100000.00, 101, 90000.50, '2023-09-02', 201, 'Approved', 'APPR','Pending...'),
+    (102, 'HSPT', 'REIM', '2023-09-03', 150000.75, 102, 140000.25, '2023-09-04', 202, 'Rejected', 'REJT','Pending...'),
+    (103, 'INDV', 'DRCT', '2023-09-05', 80000.50, 103, 78000.25, '2023-09-06', 203, 'Under Process', 'UPRO','Pending...'),
+    (104, 'HSPT', 'REIM', '2023-09-07', 120000.25, 104, 110000.75, '2023-09-08', 204, 'Rejected', 'REJT','Pending...'),
+    (105, 'INDV', 'DRCT', '2023-09-09', 95000.75, 105, 92000.25, '2023-09-10', 205, 'Approved', 'APPR','Pending...'),
+    (106, 'HSPT', 'REIM', '2023-09-11', 110000.50, 106, 105000.25, '2023-09-12', 206, 'Rejected', 'REJT','Pending...'),
+    (107, 'INDV', 'DRCT', '2023-09-13', 75000.25, 107, 72000.75, '2023-09-14', 207, 'Approved', 'APPR','Pending...'),
+    (108, 'HSPT', 'REIM', '2023-09-15', 130000.75, 108, 125000.25, '2023-09-16', 208, 'Under Process', 'UPRO','Pending...'),
+    (109, 'INDV', 'DRCT', '2023-09-17', 85000.50, 109, 82000.25, '2023-09-18', 209, 'Approved', 'APPR','Pending...'),
+    (110, 'HSPT', 'REIM', '2023-09-19', 160000.25, 110, 150000.75, '2023-09-20', 210, 'Rejected', 'REJT','Pending...'),
+    (111, 'INDV', 'DRCT', '2023-09-21', 90000.75, 111, 87000.25, '2023-09-22', 211, 'Approved', 'APPR','Pending...'),
+    (112, 'HSPT', 'REIM', '2023-09-23', 140000.50, 112, 135000.25, '2023-09-24', 212, 'Rejected', 'REJT','Pending...'),
+    (113, 'INDV', 'DRCT', '2023-09-25', 78000.25, 113, 75000.75, '2023-09-26', 213, 'Approved', 'APPR','Pending...'),
+    (114, 'HSPT', 'REIM', '2023-09-27', 125000.75, 114, 120000.25, '2023-09-28', 214, 'Rejected', 'REJT','Pending...'),
+    (115, 'INDV', 'DRCT', '2023-09-29', 110000.50, 115, 105000.25, '2023-09-30', 215, 'Approved', 'APPR','Pending...'),
+    (116, 'INDV', 'DRCT', '2023-10-01', 92000.75, 116, 90000.25, '2023-10-02', 216, 'Under Process', 'UPRO','Pending...'),
+    (117, 'HSPT', 'REIM', '2023-10-03', 115000.50, 117, 112000.25, '2023-10-04', 217, 'Under Process', 'UPRO','Pending...'),
+    (118, 'INDV', 'DRCT', '2023-10-05', 79000.25, 118, 77000.75, '2023-10-06', 218,'Approved', 'APPR','Pending...'),
+    (119, 'HSPT', 'REIM', '2023-10-07', 130000.75, 119, 126000.25, '2023-10-08', 219, 'Under Process', 'UPRO','Pending...'),
+    (120, 'INDV', 'DRCT', '2023-10-09', 88000.50, 120, 86000.25, '2023-10-10', 220, 'Rejected', 'REJT','Pending...');
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	CREATE TABLE InsuranceDiscounts (
+    insp_id int,
+    disc_id int
+);
+
+
+
+
+-- Sample INSERT statements for the InsuranceDiscounts table
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (1, 101);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (2, 102);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (3, 103);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (4, 104);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (5, 105);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (6, 106);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (7, 107);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (8, 108);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (9, 109);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (10, 110);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (11, 111);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (12, 112);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (13, 113);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (14, 114);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (15, 115);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (16, 116);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (17, 117);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (18, 118);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (19, 119);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (20, 120);
+-- Additional INSERT statements for the InsuranceDiscounts table
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (6, 121);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (9, 122);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (12, 123);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (15, 124);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (18, 125);
+-- More INSERT statements for the InsuranceDiscounts table
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (2, 126);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (4, 127);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (7, 128);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (10, 129);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (13, 130);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (16, 131);
+INSERT INTO InsuranceDiscounts (insp_id, disc_id) VALUES (19, 132);
+
+CREATE TABLE InsurancePackageCoveredDiseases as select * from InsuranceDiscounts
+
+
+
+
+CREATE TABLE DiseaseDetails (
+    disc_id INT,
+    disc_name VARCHAR(100),
+    disc_icdcode VARCHAR(10),
+    disc_desc VARCHAR(255),
+    disc_status CHAR(2)
+);
+
+
+INSERT INTO DiseaseDetails (disc_id, disc_name, disc_icdcode, disc_desc, disc_status)
+VALUES
+    (2, 'Hypertension', 'I10', 'High blood pressure', 'AC'),
+    (3, 'Diabetes', 'E11', 'Type 2 diabetes mellitus', 'AC'),
+    (20, 'Asthma', 'J45', 'Bronchial asthma', 'AC'),
+    (21, 'Influenza', 'J11', 'Influenza, virus not identified', 'AC'),
+    (105, 'Migraine', 'G43', 'Migraine', 'AC'),
+    (106, 'Arthritis', 'M15', 'Polyosteoarthritis', 'AC'),
+    (107, 'Pneumonia', 'J18', 'Pneumonia, unspecified organism', 'AC'),
+    (108, 'Cancer', 'C80', 'Malignant neoplasm', 'AC'),
+    (109, 'Chronic Kidney Disease', 'N18', 'Chronic kidney disease', 'AC'),
+    (110, 'Epilepsy', 'G40', 'Epileptic seizures', 'AC'),
+    (111, 'Obesity', 'E66', 'Obesity', 'AC'),
+    (112, 'Rheumatoid Arthritis', 'M05', 'Rheumatoid arthritis', 'AC'),
+    (113, 'COPD', 'J44', 'Chronic obstructive pulmonary disease', 'AC'),
+    (114, 'Alzheimer''s Disease', 'G30', 'Alzheimer''s disease', 'AC'),
+    (115, 'Stroke', 'I63', 'Cerebral infarction', 'AC'),
+    (116, 'Hepatitis B', 'B18', 'Chronic viral hepatitis B', 'AC'),
+    (117, 'HIV/AIDS', 'B20', 'HIV disease', 'AC'),
+    (118, 'Osteoporosis', 'M81', 'Postmenopausal osteoporosis', 'AC'),
+    (119, 'Gastroesophageal Reflux Disease', 'K21', 'GERD', 'AC'),
+    (120, 'Hypothyroidism', 'E03', 'Hypothyroidism', 'AC'),
+    (121, 'Anxiety Disorder', 'F41', 'Generalized anxiety disorder', 'AC'),
+    (122, 'Depression', 'F32', 'Major depressive disorder', 'AC'),
+    (123, 'Glaucoma', 'H40', 'Glaucoma', 'AC'),
+    (124, 'Psoriasis', 'L40', 'Psoriasis', 'AC'),
+    (125, 'Hemorrhoids', 'K64', 'Hemorrhoids', 'AC'),
+    (126, 'Acne', 'L70', 'Acne', 'AC'),
+    (127, 'Celiac Disease', 'K90', 'Celiac disease', 'AC'),
+    (128, 'Gout', 'M10', 'Gout', 'AC'),
+    (129, 'Ovarian Cancer', 'C56', 'Malignant neoplasm of ovary', 'AC'),
+    (130, 'Pancreatic Cancer', 'C25', 'Malignant neoplasm of pancreas', 'AC'),
+    (131, 'Leukemia', 'C91', 'Lymphoid leukemia', 'AC'),
+    (132, 'Hypertension', 'I10', 'High blood pressure', 'NA');
+CREATE TABLE InsurancePackages (
+    insp_id serial PRIMARY KEY,
+    insp_title varchar(60),
+    insp_desc varchar(255),
+    insp_status char(2),
+    insp_range_start numeric,
+    insp_range_end numeric,
+    insp_agelimit_start int,
+    insp_agelimit_end int
+);
