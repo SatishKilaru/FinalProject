@@ -186,24 +186,23 @@
             color: #19B3D3;
         }
 
-  
-
+        
     </style>
-  </head>
-  <body>
-
+    <title>Left Top Menu Page</title>
+</head>
+<body>
    <input type="checkbox" id="check">
     <header>
         
         <div class="left_area">
-            <h3>IMS Hospital</h3>
+            <h3>Hospital Management</h3>
         </div>
     </header>
     <div class="sidebar">
         <center>
      <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
         </center>
-         <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
+        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
         <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
         <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
         <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
@@ -214,39 +213,48 @@
     </div>
     <div class="content">
 
-        <!-- Total Claimed Amount Section -->
-        <div class="section">
-            <div>
-                <h2>Total Claimed Amount</h2>
-            </div>
-            <div>
-                <div th:each="clmbills,sl : ${claimedamt}">
-                    <!-- Hidden input field for each item's claim amount -->
-                    <input type="hidden" id="amount" th:value="${clmbills.clbl_claim_amount}" />
-                </div>
-            </div>
-            <!-- Display the total claim amount (JavaScript will handle this) -->
-            <h1>Total Claim Amount: <span id="totalClaimAmount"></span></h1>
-            <button class="btn btn-secondary" onclick="showtable1()">View all</button>
-        </div>
+		<!-- Total Claimed Amount Section -->
+		<div class="section">
+			<div class="card" onclick="showtable1()"
+				style="background-color: lightgrey; cursor: pointer;">
+				<div class="card-body">
+					<h2 style="font-family:times-roman" class="card-title text-center">Claimed Amount:</h2>
+					<div th:each="clmbills,sl : ${claimedamt}">
+						<!-- Hidden input field for each item's claim amount -->
+						<input type="hidden" id="amount"
+							th:value="${clmbills.clbl_claim_amount}" />
+					</div>
+					<!-- Display the total claim amount (JavaScript will handle this) -->
+					<h1  style="font-family:times-roman" class="card-text text-center">
+						Total Amount: <span id="totalClaimAmount"></span>
+					</h1>
+				</div>
+			</div>
+		</div>
 
-        <!-- Pending Bills Section -->
-        <div class="sections">
-            <div>
-                <h2>Total amount to be Claimed</h2>
-            </div>
-           
-            <div>
-                <div th:each="clmbills,sl : ${total_amount}">
-                    <!-- Hidden input field for each item's claim amount -->
-                    <input type="hidden" id="totalamt" th:value="${clmbills.clbl_claim_amount}" />
-                </div>
-            </div>
-            <!-- Display the total claim amount for pending bills (JavaScript will handle this) -->
-            <h1>Total Claim Amount: <span id="totalAmount"></span></h1>
-            <button class="btn btn-secondary" onclick="showtable2()">View all</button>
-        </div>
-    </div>
+
+
+
+		<!-- Pending Bills Section -->
+		<div class="sections">
+			<div class="card" onclick="showtable2()"
+				style="background-color: lightgrey; cursor: pointer;">
+				<div class="card-body">
+					<h2 style="font-family:times-roman" class="card-title text-center">Total Amounts To:</h2>
+					<div th:each="clmbills,sl : ${total_amount}">
+						<!-- Hidden input field for each item's claim amount -->
+						<input type="hidden" id="totalamt"
+							th:value="${clmbills.clbl_claim_amount}" />
+					</div>
+					<!-- Display the total claim amount (JavaScript will handle this) -->
+					<h1 style="font-family:times-roman" class="card-text text-center">
+						Total Amount: <span id="totalAmount"></span>
+					</h1>
+				</div>
+			</div>
+		</div>
+
+	</div>
 
 
 

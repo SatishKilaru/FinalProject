@@ -153,17 +153,18 @@
     display: inline-block;
     width: 30%;
     vertical-align: top;
-    margin-left: 25%; /* Adjust this margin to create space between the two sections */
+    margin-left: 5%; /* Adjust this margin to create space between the two sections */
     margin-top: 10%;
-    
+  
 }
 
 .sections {
     display: inline-block;
-    width: 30%;
+    width: 40%;
     vertical-align: top;
     margin-left: 10px; /* Adjust this margin to create space between the two sections */
     margin-top: 10%;
+    padding-left:10%;
 }
 
 
@@ -176,23 +177,21 @@
         }
         
        
-
-
     </style>
-  </head>
-  <body>
- 
+    <title>Left Top Menu Page</title>
+</head>
+<body>
     <input type="checkbox" id="check">
     <header>
         <div class="left_area">
-            <h3>IMS Hospital</h3>
+            <h3 >Hospital Management</h3>
         </div>
     </header>
     <div class="sidebar">
         <center>
      <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
         </center>
-       <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
+        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
         <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
         <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
         <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
@@ -201,28 +200,27 @@
         <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
         <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
     </div>
-    <div class="context">
-        <div class="section">
-            <div style="display: inline-block;">
-                <h2>Total Applicants</h2>
+  <div class="content">
+   
+    <div class="section">
+        <div class="card mb-3" style="background-color: lightgrey; cursor: pointer;" onclick="showtable1()">
+            <div class="card-body">
+                <h2 class="card-title"  style="font-family:times-roman">Active Applicants</h2>
+                <h1 style="font-family:times-roman" th:text="${claims.size()}" class="card-text"></h1>
             </div>
-            <div style="display: inline-block; margin-left: 20px;">
-                <h1 th:text="${claims.size()}"></h1>
-            </div>
-            <br><br>
-            <button class="btn btn-secondary" onclick="showtable1()">View all</button>
-        </div>
-        <div class="sections">
-            <div style="display: inline-block;">
-                <h2>Completed claims</h2>
-            </div>
-            <div style="display: inline-block; margin-left: 20px;">
-                <h1 th:text="${claimsunderprocess.size()}"></h1>
-            </div>
-            <br><br>
-            <button class="btn btn-secondary" onclick="showtable2()">View all</button>
         </div>
     </div>
+
+    <div class="sections">
+        <div class="card mb-3" style="background-color: lightgrey; cursor: pointer;" onclick="showtable2()">
+            <div class="card-body">
+                <h2 class="card-title"  style="font-family:times-roman">Total Applicants</h2>
+                <h1  style="font-family:times-roman" th:text="${claimsunderprocess.size()}" class="card-text"></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="content">
         <table border="1" id="applicantTable" style="display: none;">
             <tr>
