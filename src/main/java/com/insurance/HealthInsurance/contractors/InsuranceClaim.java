@@ -29,6 +29,8 @@ public interface InsuranceClaim {
 	List<InsurancePackage> getPackagesByStatus(String status);
 
 	List<InsurancePackage> getAllInsurancePackagesByAge(int age);
+	
+	List<DiseaseDetails> getDiseasesByPackageId(int inspId);
 
 	// Login
 	int sendmail(String to_mail);

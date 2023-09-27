@@ -137,4 +137,9 @@ public class ClaimService {
 
 	}
 
+	public List<DiseaseDetails> getDiseasesByPackageId(int inspId) {
+		
+		return insuranceClaim.getDiseasesByPackageId(inspId);
+	}
+
 }

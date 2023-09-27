@@ -119,58 +119,71 @@
 
 
     <form action="filteredpackages">
-
-       <b>Status:</b> <select name="status">
+		Status:
+		<select name="status" id="status">
 			<option name="ALL">ALL</option>
-            <option name="AC">AC</option>
-            <option name="NA">NA</option>
-        </select>
+			<option name="AC">AC</option>
+			<option name="NA">NA</option>
+		</select>
+		Age Limit:
+		<input type="text" name="age" id="age">
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-primary">Search</button>
+    
+	</form>
+<br>
+	<form action="excel">
+		<input type="hidden" id="statu" name="status">
+		<input type="hidden" id="ag" name="age">
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Download" onclick="downloadExcel()" id="down" class="btn btn-success" >
+	</form>
 
-       <b> AgeLimit:</b><input type="text" name="age">
-        <input type="submit" value="search">
+	<section>
+		<table id="packageTable">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Status</th>
+					<th>Range Start</th>
+					<th>Range End</th>
+					<th>Age Limit Start</th>
+					<th>Age Limit End</th>
+					<th>Action</th> <!-- Add a new column for the button -->
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Loop through the insurance packages and display them in rows -->
+				<tr th:each="insurancePackage : ${insurancePackages}">
+					<td th:text="${insurancePackage.inspId}"></td>
+					<td th:text="${insurancePackage.inspTitle}"></td>
+					<td th:text="${insurancePackage.inspDescription}"></td>
+					<td th:text="${insurancePackage.inspStatus}"></td>
+					<td th:text="${insurancePackage.inspRangeStart}"></td>
+					<td th:text="${insurancePackage.inspRangeEnd}"></td>
+					<td th:text="${insurancePackage.inspAgeLimitStart}"></td>
+					<td th:text="${insurancePackage.inspAgeLimitEnd}"></td>
+					<td>
+						<!-- Add a button that links to the controller with the insurance ID as a parameter -->
+						<a th:href="@{'/diseases/' + ${insurancePackage.inspId}}" class="btn btn-primary">View</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
 
-    </form>
-
-    <section>
-        <table id="packageTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Range Start</th>
-                    <th>Range End</th>
-                    <th>Age Limit Start</th>
-                    <th>Age Limit End</th>
-                    <th>Action</th> <!-- Add a new column for the button -->
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Loop through the insurance packages and display them in rows -->
-                <tr th:each="insurancePackage : ${insurancePackages}">
-                    <td th:text="${insurancePackage.inspId}"></td>
-                    <td th:text="${insurancePackage.inspTitle}"></td>
-                    <td th:text="${insurancePackage.inspDescription}"></td>
-                    <td th:text="${insurancePackage.inspStatus}"></td>
-                    <td th:text="${insurancePackage.inspRangeStart}"></td>
-                    <td th:text="${insurancePackage.inspRangeEnd}"></td>
-                    <td th:text="${insurancePackage.inspAgeLimitStart}"></td>
-                    <td th:text="${insurancePackage.inspAgeLimitEnd}"></td>
-                    <td>
-                        <!-- Add a button that links to the controller with the insurance ID as a parameter -->
-                        <a th:href="@{'/view-insurance/' + ${insurancePackage.inspId}}"
-                            class="btn btn-primary">View</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <footer>
-        <!-- Add footer content if needed -->
-    </footer>
-    <div align="center"><a class="btn btn-primary" th:href="@{'/index'}">Back</a></div>
+	<footer>
+		<!-- Add footer content if needed -->
+	</footer>
+	<script>
+		function downloadExcel() {
+			var status = document.getElementById("status").value;
+			var age = document.getElementById("age").value;
+			document.getElementById("statu").value = status;
+			document.getElementById("ag").value = age;
+			alert(status + age);
+		}
+	</script>
 </body>
 
 </html>

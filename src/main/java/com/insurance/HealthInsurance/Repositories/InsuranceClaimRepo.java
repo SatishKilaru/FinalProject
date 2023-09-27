@@ -49,7 +49,10 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 	private static final String GET_FILTERED_PACKAGES = "select * FROM InsurancePackages where insp_status=? and ? BETWEEN insp_agelimit_start AND insp_agelimit_end;";
 	private static final String GET_PACKAGES_BY_STATUS = "select * FROM InsurancePackages where insp_status=?";
 	private static final String GET_FILTERED_PACKAGES_BY_AGE = "select * FROM InsurancePackages where ? BETWEEN insp_agelimit_start AND insp_agelimit_end;";
+	private static final String GET_DISEASE_DETAILS_BY_PACKAGE_ID = "SELECT D.* FROM DiseaseDetails AS D JOIN InsurancePackageCoveredDiseases AS IPCD ON D.disc_id = IPCD.disc_id JOIN InsurancePackages AS IP ON IPCD.insp_id = IP.insp_id WHERE IP.insp_id = ?;";
 
+	
+	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -90,6 +93,13 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 	public List<InsurancePackage> getAllInsurancePackagesByAge(int age) {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.query(GET_FILTERED_PACKAGES_BY_AGE, new Object[] { age }, new InsurancePackageRowMapper());
+	}
+	
+	@Override
+	public List<DiseaseDetails> getDiseasesByPackageId(int id) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.query(GET_DISEASE_DETAILS_BY_PACKAGE_ID, new Object[] { id }, new DiseseDetailsRowMapper());
+
 	}
 
 	/// Email sending for login

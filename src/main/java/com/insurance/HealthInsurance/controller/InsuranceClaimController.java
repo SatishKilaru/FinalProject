@@ -67,24 +67,8 @@ public class InsuranceClaimController {
 		return "packages";
 	}
 
-	@GetMapping("/view-insurance/{inspId}")
-	public String viewInsurance(@PathVariable int inspId, Model model) {
 
-		List<InsurancePackageCoveredDisease> coveredDiseases = claimService.getCoveredDiseasesByPackageId(inspId);
-
-		model.addAttribute("coveredDiseases", coveredDiseases);
-
-		return "insurance-package-view";
-	}
-
-	@GetMapping("/diseasedetails/{discId}")
-	public String viewDiseseDetails(@PathVariable int discId, Model model) {
-		DiseaseDetails dd = claimService.getDiseaseDetailsById(discId);
-		model.addAttribute("diseasedetails", dd);
-		System.out.println("age1");
-		return "diseasedetails";
-
-	}
+	
 
 	@GetMapping("/filteredpackages")
 	public String getFilteredPackages(@RequestParam("status") String status, @RequestParam("age") String age,
@@ -123,6 +107,84 @@ public class InsuranceClaimController {
 			}
 		}
 
+	}
+	
+	
+	@RequestMapping(value = "/excel")
+	public void downloadExcel(@RequestParam("status") String status,@RequestParam("age") String age ,HttpServletResponse response) throws IOException {
+		List<InsurancePackage> insurancePackages = new ArrayList<>();
+		System.out.println(status+age);
+		
+		if ("ALL".equals(status) && age.equals("")) {
+			System.out.println("if");
+			insurancePackages = claimService.getAllInsurancePackages();
+
+		} else if ("ALL".equals(status) && !age.equals("")) {
+			System.out.println("if");
+				insurancePackages = claimService.getAllInsurancePackagesByAge(Integer.parseInt(age));
+
+			// Add the data to the model for rendering in the Thymeleaf template
+
+		} else {
+
+			if (age.equals("")) {
+				insurancePackages = claimService.getPackagesByStatus(status);
+
+			} else {
+				insurancePackages = claimService.getFilteredPackages(status,Integer.parseInt(age));
+
+
+			}
+		}
+		Workbook workbook = new XSSFWorkbook();
+		org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Packages List");
+		Row headerRow = sheet.createRow(0);
+
+	    // Define column headings
+	    headerRow.createCell(0).setCellValue("PackageId");
+	    headerRow.createCell(1).setCellValue("PackageTitle");
+	    headerRow.createCell(2).setCellValue("Discription");
+	    headerRow.createCell(3).setCellValue("Status");
+	    headerRow.createCell(4).setCellValue("Amount Start Range");
+	    headerRow.createCell(5).setCellValue("Amount End Range");
+	    headerRow.createCell(6).setCellValue("Age Limit Start");
+	    headerRow.createCell(7).setCellValue("Age Limit End");
+	    
+	    
+	    System.out.println(insurancePackages.size());
+	    
+	    int rowIdx = 1;
+		for (InsurancePackage insurance : insurancePackages) {
+			Row row = sheet.createRow(rowIdx++);
+			row.createCell(0).setCellValue(insurance.getInspId());
+			row.createCell(1).setCellValue(insurance.getInspTitle());
+			row.createCell(2).setCellValue(insurance.getInspDescription());
+			row.createCell(3).setCellValue(insurance.getInspStatus());
+			row.createCell(4).setCellValue(insurance.getInspRangeStart());
+			row.createCell(5).setCellValue(insurance.getInspRangeEnd());
+			row.createCell(6).setCellValue(insurance.getInspAgeLimitStart());
+			row.createCell(7).setCellValue(insurance.getInspAgeLimitEnd());
+
+		}
+		
+		
+	    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		response.setHeader("Content-Disposition", "attachment; filename=packages.xlsx");
+		OutputStream outputStream = response.getOutputStream();
+		workbook.write(outputStream);
+		outputStream.close();
+	}
+	
+	
+	@GetMapping(value="/diseases/{inspId}")
+	public String getDiseases(@PathVariable int inspId,Model model) {
+		List<DiseaseDetails> diseases = claimService.getDiseasesByPackageId(inspId);
+		System.out.println("jhjhjh"+inspId);
+		int insId = inspId; 
+		model.addAttribute("inspId", insId);
+		model.addAttribute("diseases",diseases);
+		return "diseasedetails";
+		
 	}
 
 	////
@@ -215,45 +277,47 @@ public class InsuranceClaimController {
 	public String newclaim(Model model) {
 		return "SETCLAIMS";
 	}
+	
+
 
 	@RequestMapping(value = "/claimbills", method = RequestMethod.POST)
 	public String claimData(@RequestParam("file[]") MultipartFile[] files, Claim claim, ClaimApplication application,
 			Model model) {
+		return "index";
+//		claimService.addClaimApplication(application);
+//		claimService.addClaim(claim.getClamIplcId());
+//		Claim clm_id = claimService.getClaimByid(claim.getClamIplcId());
+//		int cid = clm_id.getClamId();
+//		String uploadDir = "src/main/resources/static/file";
+//
+//		try {
+//			// Create the target directory if it doesn't exist
+//			Files.createDirectories(Paths.get(uploadDir));
+//
+//			for (MultipartFile file : files) {
+//				// Get the original file name
+//				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//
+//				// Create the target file path within the directory
+//				Path targetLocation = Paths.get(uploadDir).resolve(fileName);
+//
+//				// Copy the file to the target location
+//				Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+//
+//				String fullPath = targetLocation.toAbsolutePath().toString();
+//
+//				claimService.addClaimBills(file.getOriginalFilename(), fullPath, cid);
+//
+//			}
+//
+//			// After successfully storing all files, you can redirect to a success page or return a response accordingly
+//			return "index";
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//
+//		}
 
-		claimService.addClaimApplication(application);
-		claimService.addClaim(claim.getClamIplcId());
-		Claim clm_id = claimService.getClaimByid(claim.getClamIplcId());
-		int cid = clm_id.getClamId();
-		String uploadDir = "src/main/resources/static/file";
-
-		try {
-			// Create the target directory if it doesn't exist
-			Files.createDirectories(Paths.get(uploadDir));
-
-			for (MultipartFile file : files) {
-				// Get the original file name
-				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-				// Create the target file path within the directory
-				Path targetLocation = Paths.get(uploadDir).resolve(fileName);
-
-				// Copy the file to the target location
-				Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-				String fullPath = targetLocation.toAbsolutePath().toString();
-
-				claimService.addClaimBills(file.getOriginalFilename(), fullPath, cid);
-
-			}
-
-			// After successfully storing all files, you can redirect to a success page or return a response accordingly
-			return "SETCLAIMS";
-		} catch (IOException ex) {
-			ex.printStackTrace();
-
-		}
-
-		return "SETCLAIMS";
+		
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
