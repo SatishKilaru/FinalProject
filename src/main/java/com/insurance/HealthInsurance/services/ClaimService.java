@@ -16,6 +16,7 @@ import com.insurance.HealthInsurance.models.InsurancePackage;
 import com.insurance.HealthInsurance.models.InsurancePackageCoveredDisease;
 import com.insurance.HealthInsurance.models.LoginClass;
 import com.insurance.HealthInsurance.models.Payments;
+import com.insurance.HealthInsurance.models.PolicyMembers;
 import com.insurance.HealthInsurance.models.claimss;
 
 @Service
@@ -138,8 +139,21 @@ public class ClaimService {
 	}
 
 	public List<DiseaseDetails> getDiseasesByPackageId(int inspId) {
-		
+
 		return insuranceClaim.getDiseasesByPackageId(inspId);
+	}
+
+	public List<String> getFamilyByPolicy(int id) {
+
+		List<PolicyMembers> members = insuranceClaim.getFamilyByPolicy(id);
+		List<String> names = new ArrayList<>();
+
+		for (PolicyMembers mem : members) {
+			if (mem.getInsurancePolicyId() == id) {
+				names.add(mem.getMemberName());
+			}
+		}
+		return names;
 	}
 
 }

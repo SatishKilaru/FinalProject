@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,159 +11,229 @@
     />
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      :root {
+    --background: #1a1a2e;
+    --color: #ffffff;
+    --primary-color: #0f3460;
+}
 
-      body {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        letter-spacing: 1px;
-        background-color: #f0f0f0; /* Background color */
-      }
+* {
+    box-sizing: border-box;
+}
 
-      .login-form-container {
-        position: relative;
-        width: 400px;
-        height: 470px;
-        max-width: 400px;
-        max-height: 470px;
-        background: #ffffff; /* Form background color */
-        border-radius: 50px 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        margin-top: 70px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow */
-      }
+html {
+    scroll-behavior: smooth;
+}
 
-      .login-form-container::before,
-      .login-form-container::after {
-        position: absolute;
-        width: 120%;
-        height: 120%;
-        content: '';
-        background-image: conic-gradient(transparent, transparent, transparent, #00ccff); /* Border gradient color */
-        animation: rotate-border 6s linear infinite;
-        border-radius: 50%;
-      }
+body {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "poppins";
+    background: var(--background);
+    color: var(--color);
+    letter-spacing: 1px;
+    transition: background 0.2s ease;
+    -webkit-transition: background 0.2s ease;
+    -moz-transition: background 0.2s ease;
+    -ms-transition: background 0.2s ease;
+    -o-transition: background 0.2s ease;
+}
 
-      .login-form-container::after {
-        animation-delay: -3s;
-      }
+a {
+    text-decoration: none;
+    color: var(--color);
+}
 
-      @keyframes rotate-border {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
+h1 {
+    font-size: 2.5rem;
+}
 
-      .login-form {
-        position: absolute;
-        content: '';
-        background-color: #ffffff; /* Form background color */
-        border-radius: 50px 5px;
-        inset: 5px;
-        padding: 50px 40px;
-        z-index: 10;
-        color: #333; /* Text color */
-        font-family: Arial, sans-serif; /* Font family */
-      }
+.container {
 
-      h2 {
-        font-size: 30px; /* Heading font size */
-        font-weight: 600;
-        text-align: center;
-        color: #333; /* Heading text color */
-        margin-bottom: 20px;
-      }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-      .input-group {
-        margin-top: 20px; /* Spacing between input groups */
-        position: relative;
-      }
+.login-container {
+    position: relative;
+    width: 22.2rem;
+}
+.form-container {
+    border: 1px solid hsla(0, 0%, 65%, 0.158);
+    box-shadow: 0 0 36px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    z-index: 99;
+    padding: 2rem;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
 
-      .input-text {
-        width: 100%;
-        height: 40px; /* Input height */
-        background: #f8f8f8; /* Input background color */
-        border: none;
-        outline: none;
-        border-radius: 5px; /* Input border radius */
-        font-size: 18px; /* Input font size */
-        padding: 10px;
-        color: #333; /* Input text color */
-      }
+.login-container form input {
+    display: block;
+    padding: 14.5px;
+    width: 100%;
+    margin: 2rem 0;
+    color: var(--color);
+    outline: none;
+    background-color: #9191911f;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    backdrop-filter: blur(15px);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
 
-      ::placeholder {
-        font-size: 16px; /* Placeholder font size */
-        color: #999; /* Placeholder text color */
-        letter-spacing: 1px;
-      }
+.login-container form input:focus {
+    box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.2);
+    animation: wobble 0.3s ease-in;
+    -webkit-animation: wobble 0.3s ease-in;
+}
 
-      .fa {
-        font-size: 20px;
-      }
+.login-container form button {
+    background-color: deepskyblue;
+    color: var(--color);
+    display: block;
+    padding: 13px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: all 0.1s ease-in-out;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+}
 
-      #login-button {
-        position: relative;
-        width: 100%;
-        margin-top: 30px; /* Spacing above the button */
-      }
+.login-container form button:hover {
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+}
 
-      #login-button button {
-        width: 100%;
-        height: 40px; /* Button height */
-        text-decoration: none;
-        font-family: Arial, sans-serif; /* Button font family */
-        z-index: 10;
-        cursor: pointer;
-        font-size: 20px; /* Button font size */
-        letter-spacing: 2px;
-        border: none;
-        border-radius: 5px; /* Button border radius */
-        background-color: #00ccff; /* Button background color */
-        color: #fff; /* Button text color */
-      }
+.circle {
+    width: 8rem;
+    height: 8rem;
+    background: deepskyblue;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: absolute;
+}
 
-      .footer {
-        margin-top: 20px; /* Spacing above the footer */
-        display: flex;
-        justify-content: space-between;
-        font-size: 16px; /* Footer link font size */
-        color: #333; /* Footer link text color */
-      }
+.illustration {
+    position: absolute;
+    top: -14%;
+    right: -2px;
+    width: 90%;
+}
 
-      .footer a {
-        text-decoration: none;
-        cursor: pointer;
-        color: #00ccff; /* Footer link hover color */
-      }
+.circle-one {
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transform: translate(-45%, -45%);
+    -webkit-transform: translate(-45%, -45%);
+    -moz-transform: translate(-45%, -45%);
+    -ms-transform: translate(-45%, -45%);
+    -o-transform: translate(-45%, -45%);
+}
 
-      .glow-icon {
-        text-shadow: 0 0 10px #00ccff;
-      }
+.circle-two {
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    transform: translate(45%, 45%);
+    -webkit-transform: translate(45%, 45%);
+    -moz-transform: translate(45%, 45%);
+    -ms-transform: translate(45%, 45%);
+    -o-transform: translate(45%, 45%);
+}
 
-      .error-message {
-        color: red; /* Error message text color */
-        margin-top: 10px;
-        text-align: center;
-      }
-      .header {
+.register-forget {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+.opacity {
+    opacity: 0.6;
+}
+
+.theme-btn-container {
+    position: absolute;
+    left: 0;
+    bottom: 2rem;
+}
+
+.theme-btn {
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.theme-btn:hover {
+    width: 40px !important;
+}
+
+@keyframes wobble {
+    0% {
+        transform: scale(1.025);
+        -webkit-transform: scale(1.025);
+        -moz-transform: scale(1.025);
+        -ms-transform: scale(1.025);
+        -o-transform: scale(1.025);
+    }
+    25% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+    }
+    75% {
+        transform: scale(1.025);
+        -webkit-transform: scale(1.025);
+        -moz-transform: scale(1.025);
+        -ms-transform: scale(1.025);
+        -o-transform: scale(1.025);
+    }
+    100% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+    }
+}
+   .header {
 	background-color: 	deepskyblue;
   color:black;
   text-align: center;
   padding: 10px;
-  position: fixed; /* Fixed position at the top */
+ /* Fixed position at the top */
   top: 0; /* Stick to the top of the viewport */
   left: 0; /* Stick to the left */
   width: 100%; /* Full width */
@@ -179,32 +249,37 @@ body {
   <body>
   <div class="header bg-dark text-white py-3">
 			<h1 class="text-center">IMS Hospital</h1>
-		</div><br><br><br>
-    <div class="login-form-container">
-      <form action="#" th:action="@{/adminLogin}" th:object="${login}" method="post">
-        <div class="login-form">
-          <h2>Login</h2>
-          <div class="input-group">
-            <i class="fa fa-user"></i>
-            <input type="text" placeholder="Admin ID" class="input-text" autocomplete="off" th:field="*{user_name}" />
-          </div>
-          <div class="input-group">
-            <i class="fa fa-unlock-alt"></i>
-            <input type="password" placeholder="Password" class="input-text" autocomplete="off" th:field="*{password}" />
-          </div>
-          <div class="button-group" id="login-button">
-            <button type="submit">Submit</button>
-          </div>
-          <div class="error-message" th:if="${errorMessage}">
-            <!-- Display login error message here -->
-            <span th:text="${errorMessage}"></span>
-          </div>
-          <div class="footer">
-            <a id="btn2" th:href="@{/forgotpassword}">Forgot password..?</a>
-          </div>
+		</div>
+  <section class="container">
+        <div class="login-container">
+            <div class="circle circle-one"></div>
+            <div class="form-container">
+                         <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+             
+                <h1 class="opacity">Login</h1>
+                
+                <form action="#" th:action="@{/adminLogin}" th:object="${login}" method="post">
+                  
+                    <div class="input-group">
+                        <i class="fa fa-unlock-alt"></i>
+                          <input type="text" placeholder="Admin ID" class="input-text" th:field="*{user_name}" />
+                        <input type="password" placeholder="Password" class="input-text"  th:field="*{password}" />
+                    </div>
+                    <div class="button-group" id="login-button">
+                        <button type="submit">Submit</button>
+                    </div>
+                    <div class="error-message" th:if="${errorMessage}">
+                        <!-- Display login error message here -->
+                        <span th:text="${errorMessage}"></span>
+                    </div>
+                    <div class="footer">
+                        <a id="btn2" th:href="@{/forgotpassword}">Forgot password..?</a>
+                    </div>
+                </form>
+            </div>
+            <div class="circle circle-two"></div>
         </div>
-      </form>
-    </div>
+    </section>
 
     <!-- Include Thymeleaf JavaScript dependencies if needed -->
     <!-- Example: <script src="https://cdnjs.cloudflare.com/ajax/libs/thymeleaf/3.0.12.RELEASE/thymeleaf.js"></script> -->

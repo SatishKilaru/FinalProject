@@ -30,6 +30,7 @@ import com.insurance.HealthInsurance.models.InsurancePackage;
 import com.insurance.HealthInsurance.models.InsurancePackageCoveredDisease;
 import com.insurance.HealthInsurance.models.LoginClass;
 import com.insurance.HealthInsurance.models.Payments;
+import com.insurance.HealthInsurance.models.PolicyMembers;
 import com.insurance.HealthInsurance.models.claimss;
 import com.insurance.HealthInsurance.rowmappers.ClaimBillsRowMappers;
 import com.insurance.HealthInsurance.rowmappers.ClaimsMapper;
@@ -38,6 +39,7 @@ import com.insurance.HealthInsurance.rowmappers.DiseseDetailsRowMapper;
 import com.insurance.HealthInsurance.rowmappers.InsurancePackageCoveredDiseaseRowMapper;
 import com.insurance.HealthInsurance.rowmappers.InsurancePackageRowMapper;
 import com.insurance.HealthInsurance.rowmappers.PaymentMapper;
+import com.insurance.HealthInsurance.rowmappers.PolicyMembersRowMapper;
 import com.insurance.HealthInsurance.rowmappers.RowMap;
 
 @Component
@@ -51,8 +53,6 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 	private static final String GET_FILTERED_PACKAGES_BY_AGE = "select * FROM InsurancePackages where ? BETWEEN insp_agelimit_start AND insp_agelimit_end;";
 	private static final String GET_DISEASE_DETAILS_BY_PACKAGE_ID = "SELECT D.* FROM DiseaseDetails AS D JOIN InsurancePackageCoveredDiseases AS IPCD ON D.disc_id = IPCD.disc_id JOIN InsurancePackages AS IP ON IPCD.insp_id = IP.insp_id WHERE IP.insp_id = ?;";
 
-	
-	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -94,7 +94,7 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.query(GET_FILTERED_PACKAGES_BY_AGE, new Object[] { age }, new InsurancePackageRowMapper());
 	}
-	
+
 	@Override
 	public List<DiseaseDetails> getDiseasesByPackageId(int id) {
 		// TODO Auto-generated method stub
@@ -305,6 +305,14 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 
 		return jdbcTemplate.queryForObject("select distinct clam_id from _Claims where clam_iplc_id=" + clamIplcId,
 				new RowMap());
+	}
+
+	@Override
+	public List<PolicyMembers> getFamilyByPolicy(int id) {
+
+		return jdbcTemplate.query(
+				"select ipcm_mindex,iplc_id, ipcm_membername, ipcm_relation from insurancepolicycoveragemembers",
+				new PolicyMembersRowMapper());
 	}
 
 }

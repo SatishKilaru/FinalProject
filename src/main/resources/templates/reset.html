@@ -157,7 +157,7 @@
 	background-color: 	deepskyblue;
   color:black;
   text-align: center;
-  padding: 10px;
+  padding: 30px;
   position: fixed; /* Fixed position at the top */
   top: 0; /* Stick to the top of the viewport */
   left: 0; /* Stick to the left */
@@ -175,8 +175,9 @@ body {
   <div class="header bg-dark text-white py-3">
 			<h1 class="text-center">IMS Hospital</h1>
 		</div><br><br><br>
-    <div class="login-form-container">
+    <div class="login-form-container" style="margin-top: 150px;">
         <form id="myForm" action="reset" method="post" class="login-form">
+        
             <h2>Customized Login</h2>
              <input type="hidden" name="email" th:value="${email}">   
             <div class="input-group">

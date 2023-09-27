@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <style>
         /* Global Styles */
+        	body {
+    background-color: black; /* Set the background color to black */
+    color: white; /* Set the text color to white */
+    margin: 0;
+    padding: 0;
+    font-family: "Gill Sans", sans-serif;
+}
+        
         body, ul {
             margin: 0;
             padding: 0;
@@ -215,9 +223,8 @@
         .logout-button:hover {
             background-color: #c9302c;
         }
-
-    </style>
-    <title>Left Top Menu Page</title>
+	    </style>
+    <title>Dahsboard</title>
 </head>
 <body>
     <input type="checkbox" id="check">
@@ -234,11 +241,13 @@
             <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">
             <h4>Admin</h4>
         </center>
+        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
         <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
         <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
         <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
         <a th:href="@{/start}"><i class="fas fa-list-alt"></i><span>List Packages</span></a>
         <a th:href="@{/payments}"><i class="fas fa-product-hunt"></i><span>Payments</span></a>
+        <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
         <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
     </div>
     <div class="content">

@@ -12,6 +12,7 @@ import com.insurance.HealthInsurance.models.InsurancePackage;
 import com.insurance.HealthInsurance.models.InsurancePackageCoveredDisease;
 import com.insurance.HealthInsurance.models.LoginClass;
 import com.insurance.HealthInsurance.models.Payments;
+import com.insurance.HealthInsurance.models.PolicyMembers;
 import com.insurance.HealthInsurance.models.claimss;
 
 public interface InsuranceClaim {
@@ -29,7 +30,7 @@ public interface InsuranceClaim {
 	List<InsurancePackage> getPackagesByStatus(String status);
 
 	List<InsurancePackage> getAllInsurancePackagesByAge(int age);
-	
+
 	List<DiseaseDetails> getDiseasesByPackageId(int inspId);
 
 	// Login
@@ -72,4 +73,6 @@ public interface InsuranceClaim {
 	Claim getClaimByid(int clamIplcId);
 
 	void addClaimBills(String originalFilename, String fullPath, int cid);
+
+	List<PolicyMembers> getFamilyByPolicy(int id);
 }
