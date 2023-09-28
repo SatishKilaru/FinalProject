@@ -172,17 +172,17 @@
         <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
         <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
     </div>
-    <div class="container">
-      
+   <div class="container">
+        <h1>Payments</h1>
         
         <div class="filter">
             <form th:action="@{/search}" method="get">
                 <label for="filterBy">Filter By:</label>
                 <select id="filterBy" name="filterBy">
                     <option value="all">All</option>
-                    <option value="paymentid">Payment ID</option>
-                    <option value="customerid">Customer ID</option>
-                    <option value="paymentdate">Payment Date</option>
+                    <option value="tran_id ">Transaction ID</option>
+                    <option value="claim_id ">Claim ID</option>
+                    <option value="payment_Processed_date ">Payment Date</option>
                 </select>
                 
                 <input type="text" id="typeSearch" name="value">
@@ -193,28 +193,27 @@
 
         <table>
             <tr>
-                <th>Payment Id</th>
-                <th>Customer ID</th>
-                <th>Claim ID</th>
-                <th>Hospital ID</th>
-                <th>Payment Amount</th>
+                <th>Settlement Id</th>
+                <th>Transaction ID</th>
                 <th>Payment Date</th>
-                <th>Action</th>
+                <th>Claim ID</th>
+                <th>Payment Amount</th>
+                <th></th>
             </tr>
             <tr th:each="payment : ${payments}">
-                <td th:text="${payment.paymentID}"></td>
-                <td th:text="${payment.customerID}"></td>
-                <td th:text="${payment.claimID}"></td>
-                <td th:text="${payment.hospitalID}"></td>
-                <td th:text="${payment.paymentAmount}"></td>
-                <td th:text="${#dates.format(payment.paymentDate, 'yyyy-MM-dd')}"></td>
-                <td><a th:href="@{'/view/' + ${payment.paymentID}}">View</a></td>
+                <td th:text="${payment.stmt_id}"></td>
+                <td th:text="${payment.tran_id}"></td>
+                <td th:text="${#dates.format(payment.payment_Processed_date , 'yyyy-MM-dd')}"></td>
+                <td th:text="${payment.claim_id}"></td>
+                <td th:text="${payment.tran_amnt}"></td>
+                
+                
+                <td><form action="view"><input type="hidden" th:name="id" th:value="${payment.stmt_id}">
+                <input type="submit" value="view">
+                </form></td>
             </tr>
-        </table><br><br>
-         <div align="center"><a class="btn btn-primary" th:href="@{'/index'}"><b>Back To DashBoard</b></a></div>
+        </table>
     </div>
-      
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // You can add JavaScript code here if needed.
