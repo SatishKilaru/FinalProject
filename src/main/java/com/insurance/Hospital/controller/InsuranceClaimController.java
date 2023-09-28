@@ -98,7 +98,7 @@ public class InsuranceClaimController {
 
 	@GetMapping(value = "/getAllClaims")
 	public String getAllClaims(Model model) {
-
+		System.out.println("madh");
 		ArrayList<Claim> li = (ArrayList<Claim>) claimService.getAllClaims();
 		System.out.println(li.size());
 		model.addAttribute("claims", li);
@@ -114,7 +114,7 @@ public class InsuranceClaimController {
 
 	@GetMapping(value = "/getFilteredClaims")
 	public String getFilteredClaims(Model model, @RequestParam("status") String status) {
-
+		System.out.println("madh");
 		ArrayList<Claim> li = (ArrayList<Claim>) claimService.getFilteredClaims(status);
 		System.out.println(li.size());
 		model.addAttribute("claims", li);
@@ -169,12 +169,11 @@ public class InsuranceClaimController {
 
 		// Set the response headers for Excel download
 		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-		response.setHeader("Content-Disposition", "attachment; filename=employees.xlsx");
+		response.setHeader("Content-Disposition", "attachment; filename=claims.xlsx");
 
 		// Write the Excel data to the response output stream
 		OutputStream outputStream = response.getOutputStream();
 		workbook.write(outputStream);
 		outputStream.close();
 	}
-
 }

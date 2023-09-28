@@ -13,7 +13,7 @@ import com.insurance.Hospital.contractors.InsuranceClaim;
 import com.insurance.Hospital.models.Claim;
 import com.insurance.Hospital.models.ClaimApplication;
 import com.insurance.Hospital.models.PolicyMembers;
-import com.insurance.Hospital.rowmappers.ClaimsMapper;
+import com.insurance.Hospital.rowmappers.ClaimMapper;
 import com.insurance.Hospital.rowmappers.PolicyMembersRowMapper;
 import com.insurance.Hospital.rowmappers.RowMap;
 
@@ -23,28 +23,27 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	// ListClaims
-	private String SQL_GET_CLAIMS = "select * from  Claims";
-	private String SQL_GET_FILTERED_CLAIMS = "select * from  Claims where clam_status=?";
-	private String SQL_GET_CLAIM_BY_ID = "select * from  Claims where clam_id=?";
+	private String SQL_GET_CLAIMS = "select * from  _Claims";
+	private String SQL_GET_FILTERED_CLAIMS = "select * from  _Claims where clam_status=?";
+	private String SQL_GET_CLAIM_BY_ID = "select * from  _Claims where clam_id=?";
 
 	@Override
 	public ArrayList<Claim> getAllClaims() {
-
-		return (ArrayList<Claim>) jdbcTemplate.query(SQL_GET_CLAIMS, new ClaimsMapper());
+		System.out.println("bhav");
+		return (ArrayList<Claim>) jdbcTemplate.query(SQL_GET_CLAIMS, new ClaimMapper());
 	}
 
 	@Override
 	public ArrayList<Claim> getFilteredClaims(String status) {
 		// TODO Auto-generated method stub
 		return (ArrayList<Claim>) jdbcTemplate.query(SQL_GET_FILTERED_CLAIMS, new Object[] { status },
-				new ClaimsMapper());
+				new ClaimMapper());
 	}
 
 	@Override
 	public Claim getClaimById(int clamId) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.queryForObject(SQL_GET_CLAIM_BY_ID, new Object[] { clamId }, new ClaimsMapper());
+		return jdbcTemplate.queryForObject(SQL_GET_CLAIM_BY_ID, new Object[] { clamId }, new ClaimMapper());
 	}
 
 	// New Claim

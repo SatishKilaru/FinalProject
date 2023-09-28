@@ -109,21 +109,21 @@
 	<br>
 	<br><center>
 	<form action="getFilteredClaims" method="get" id="filterForm">
-		<label><b>Status :</b>
-			<select name="status" id="statusSelect" >
+		<label>Status :
+			<select name="status" id="statusSelect">
 				<option>select</option>
-				<option>APPR</option>
-				<option>REJT</option>
+				<option>Processed</option>
+				<option>Rejected</option>
 			</select>
 		</label>
-		<input type="submit" value="Filter" style="color:white;background-color:blue">
-	</form><br>
+		<input type="submit" value="Filter">
+	</form>
 	<form action="excel" method="post" id="excelForm">
 		<!-- Add a hidden input field to store the selected option -->
 		<input type="hidden" name="selectedStatus" id="selectedStatus" value="">
-		<input type="submit" value="Download Excel" onclick="updateSelectedStatus()" style="color:white;background-color:blue">
-	</form></center>
-	<br>
+		<input type="submit" value="Download" onclick="updateSelectedStatus()">
+	</form>
+
 	<table border="1">
 		<tr>
 			<th>Claim Id</th>
@@ -136,7 +136,7 @@
 			<th>Claim Processed Date</th>
 			<th>Claim Processed By</th>
 			<th>Claim Remarks</th>
-			<th>Claim Status</th><th>View</th>
+			<th>Claim Status</th>
 		</tr>
 		<tr th:each="emp : ${claims}">
 			<td class="align-middle" th:text="${emp.clamId}"></td>
@@ -153,7 +153,7 @@
 <td class="align-middle">
     <form action="viewClaim" method="post">
         <input type="hidden" name="clamId" th:value="${emp.clamId}">
-        <button type="submit" style="color:white;background-color:blue"><b>View</b></button>
+        <button type="submit">View</button>
     </form>
 </td>
 		</tr>
@@ -161,7 +161,6 @@
 			<td class="text-center" colspan="5">No Records found. Add some...!</td>
 		</tr>
 	</table>
-	     <div align="center"><a class="btn btn-primary" th:href="@{'/index'}"><b>Back To DashBoard</b></a></div>
 	<script>
 		function updateSelectedStatus() {
 			// Get the selected option value
@@ -173,5 +172,4 @@
 		}
 	</script>
 </body>
-
 </html>
