@@ -6,6 +6,8 @@ import java.util.List;
 import com.insurance.Hospital.models.Claim;
 import com.insurance.Hospital.models.ClaimApplication;
 import com.insurance.Hospital.models.PolicyMembers;
+import com.insurance.Hospital.models.ReUpload;
+import com.insurance.Hospital.models.Uploads;
 
 public interface InsuranceClaim {
 
@@ -28,4 +30,14 @@ public interface InsuranceClaim {
 	void addClaimBills(String originalFilename, String fullPath, int cid);
 
 	List<PolicyMembers> getFamilyByPolicy(int id);
+	
+	//Upload
+
+	void addRequiredUploads(ReUpload upload);
+
+	List<ReUpload> getAllReUploads(int id);
+
+	void addUploads(Uploads up);
+
+	List<Uploads> getAllUploads(int claimId);
 }

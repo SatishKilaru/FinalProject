@@ -13,8 +13,12 @@ import com.insurance.Hospital.contractors.InsuranceClaim;
 import com.insurance.Hospital.models.Claim;
 import com.insurance.Hospital.models.ClaimApplication;
 import com.insurance.Hospital.models.PolicyMembers;
+import com.insurance.Hospital.models.ReUpload;
+import com.insurance.Hospital.models.Uploads;
 import com.insurance.Hospital.rowmappers.ClaimMapper;
 import com.insurance.Hospital.rowmappers.PolicyMembersRowMapper;
+import com.insurance.Hospital.rowmappers.UploadsRowMapper;
+import com.insurance.Hospital.rowmappers.ReUploadRowMapper;
 import com.insurance.Hospital.rowmappers.RowMap;
 
 @Component
@@ -49,7 +53,7 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 	// New Claim
 
 	private String SQL_INSERT_CLAIM = "insert into _Claims(clam_source,clam_type,clam_date,clam_iplc_id) values(?,?,?,?)";
-	private String SQL_INSERT_CLAIMBill = "insert into ClaimBills(clam_id,clbl_document_title,clbl_document_path) values(?,?,?)";
+	private String SQL_INSERT_CLAIMBill = "insert into Claim_Bills(clam_id,clbl_document_title,clbl_document_path) values(?,?,?)";
 
 	@Override
 	public void addClaimApplication(ClaimApplication application) {
@@ -99,5 +103,38 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 				"select ipcm_mindex,iplc_id, ipcm_membername, ipcm_relation from insurancepolicycoveragemembers",
 				new PolicyMembersRowMapper());
 	}
+		
+	
+	//////////////////////////////
+	
+	//Reupload
+	
+	 @Override
+		public void addRequiredUploads(ReUpload upload) {
+			String query = "insert into reuploads(claimId,name,type,Status,description) values(?,?,?,?,?)";
+			Object[] values = { upload.getClaimId(), upload.getName(), upload.getType(), upload.getStatus(),
+					upload.getDescription() };
+			jdbcTemplate.update(query, values);
+		}
 
+		@Override
+		public List<ReUpload> getAllReUploads(int id) {
+
+			return jdbcTemplate.query("select * from reuploads where claimId="+id, new ReUploadRowMapper());
+		}
+
+		@Override
+		public void addUploads(Uploads up) {
+
+			System.out.println("jdbc");
+			String query = "insert into uploads(uploadId,reuploadId,claimId,data,type) values(?,?,?,?)";
+			Object[] values = { up.getUploadId(), up.getReUploadId(), up.getClaimId(), up.getData(), up.getType() };
+			jdbcTemplate.update(query, values);
+		}
+
+		@Override
+		public List<Uploads> getAllUploads(int claimId) {
+			
+			return jdbcTemplate.query("select * from uploads where claimId="+claimId, new UploadsRowMapper());
+		}
 }

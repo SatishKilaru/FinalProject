@@ -3,15 +3,27 @@ package com.insurance.Hospital.models;
 public class LoginClass {
 	String user_name;
 	String password;
+	String roleId;
+	
+	
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 
 	public LoginClass() {
 
 	}
 
-	public LoginClass(String user_name, String password) {
+	public LoginClass(String user_name, String password, String roleId) {
 		super();
 		this.user_name = user_name;
 		this.password = password;
+		this.roleId=roleId;
 	}
 
 	public String getUser_name() {

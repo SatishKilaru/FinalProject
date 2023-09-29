@@ -1,0 +1,10 @@
+/* Footer styles */
+footer {
+	background-color: #1976D2;
+	color: white;
+	text-align: center;
+	padding: 4px;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
+}

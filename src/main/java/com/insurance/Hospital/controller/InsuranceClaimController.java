@@ -2,6 +2,10 @@ package com.insurance.Hospital.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +16,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.insurance.Hospital.models.Claim;
 import com.insurance.Hospital.models.ClaimApplication;
+import com.insurance.Hospital.models.ReUpload;
+import com.insurance.Hospital.models.Uploads;
 import com.insurance.Hospital.services.ClaimService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -175,5 +183,79 @@ public class InsuranceClaimController {
 		OutputStream outputStream = response.getOutputStream();
 		workbook.write(outputStream);
 		outputStream.close();
+	}
+	
+	//Upload
+	
+	@GetMapping(value = "/getrequired")
+	public String getRequiredUploads(@RequestParam("claimid") int id, Model model) {
+	    model.addAttribute("reupload", claimService.getAllReUploads(id));
+	    model.addAttribute("claimid", id);
+	    return "update";
+	}
+
+
+	@PostMapping(value = "/adduploads")
+	public String addUploads(@RequestParam("claimid") String id, MultipartHttpServletRequest request,Model model) {
+
+		int claimId = Integer.parseInt(id);
+		int index = 1;
+
+		List<ReUpload> list = claimService.getAllReUploads(claimId);
+		List<Uploads> list2 = claimService.getAllUploads(claimId);
+		
+		if(list2.size()>0) {
+		
+			index=list2.get(list2.size()).getReUploadId();
+		}
+		for (ReUpload upload : list) {
+			if (upload.getClaimId() == claimId) {
+				String name = upload.getName();
+				System.out.println(claimId);
+				MultipartFile file = request.getFile(name);
+				if (file != null && !file.isEmpty()) {
+					System.out.println(name);
+					if (upload.getType().equals("file")) {
+						System.out.println("file");
+
+						String uploadDir = "src/main/resources/static/file";
+						try {
+							Files.createDirectories(Paths.get(uploadDir));
+
+							String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+							Path targetLocation = Paths.get(uploadDir).resolve(fileName);
+							Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+							String fullPath = targetLocation.toAbsolutePath().toString();
+
+							Uploads up = new Uploads();
+							up.setUploadId(index);
+							up.setReUploadId(upload.getUploadId());
+							up.setClaimId(claimId);
+							up.setData(fullPath);
+							up.setType("file");
+
+							claimService.addUploads(up);
+
+						} catch (IOException ex) {
+							ex.printStackTrace();
+						}
+					} else {
+
+						Uploads up = new Uploads();
+
+						up.setUploadId(index);
+						up.setReUploadId(upload.getUploadId());
+						up.setClaimId(claimId);
+						up.setData(file.getOriginalFilename());
+						up.setType("text");
+
+						claimService.addUploads(up);
+					}
+				}
+			}
+		}
+
+		model.addAttribute("claimid", claimId);
+		return "update";
 	}
 }

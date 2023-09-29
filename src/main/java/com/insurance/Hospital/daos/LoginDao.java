@@ -1,6 +1,7 @@
 package com.insurance.Hospital.daos;
 
 import java.util.Properties;
+
 import java.util.Random;
 
 import javax.mail.Authenticator;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import com.insurance.Hospital.contractors.LoginImpDao;
 import com.insurance.Hospital.models.LoginClass;
+import com.insurance.Hospital.rowmappers.LoginClassMapper;
 
 @Component
 public class LoginDao implements LoginImpDao {
@@ -91,6 +93,12 @@ public class LoginDao implements LoginImpDao {
 		int randomNumber = 100000 + random.nextInt(900000);
 
 		return randomNumber;
+	}
+
+	public LoginClass getUserByUsername(String username) {
+		String sql = "select * from checktable where username='" + username + "'";
+		return jdbc.queryForObject(sql, new LoginClassMapper());
+		
 	}
 
 }

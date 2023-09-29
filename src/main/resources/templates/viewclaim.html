@@ -36,7 +36,7 @@
 <body>
  <div  style="background-color:blue;color:white;height:80px;">
 			<h1 class="text-center">IMS Hospital</h1>
-		</div><br><br><br>
+		</div><br>
     <div class="container">
        
 
@@ -94,7 +94,12 @@
             <strong>Claim Status:</strong>
             <span th:text="${claim.clamStatus}"></span>
         </div>
-    </div>
+    </div><br>
+	<form action="getrequired">
+    <input type="hidden" th:name="claimid" th:value="${claim.clamId}">
+    <div align="center"><button><b>View Status</b></button></div>
+</form>
+<br>
      <div align="center"><a class="btn btn-primary" th:href="@{'/index'}"><b>Back To DashBoard</b></a></div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
