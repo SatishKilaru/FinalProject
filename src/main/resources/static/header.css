@@ -1,7 +1,10 @@
 header {
-    background: #1976D2;
-    padding: 32px;
+    background:black;
+    color: white; /* Add text color for better visibility */
+    padding: 28px;
     width: 100%;
     position: fixed;
+    top: 0; /* Fix the header to the top of the viewport */
     z-index: 1;
+    text-align: center;
 }

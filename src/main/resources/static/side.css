@@ -1,12 +1,14 @@
- /* Sidebar Styles */
-  .sidebar {
-    background:  #1976D2;
+/* Sidebar Styles */
+.sidebar {
+    background: black;
+    color: #fff; /* Set text color for better visibility */
     padding-top: 10px;
     position: fixed;
     left: 0;
     width: 250px;
     height: 100%;
     margin-top: 30px;
+    overflow-y: auto; /* Add vertical scrolling if the content overflows */
 }
 
 .sidebar .profile_image {

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+    <div class="sidebar">
+        <center>
+     <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
+        </center>
+        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
+        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+        <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
+        <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
+        <a th:href="@{/start}"><i class="fas fa-list-alt"></i><span>List Packages</span></a>
+        <a th:href="@{/payments}"><i class="fas fa-product-hunt"></i><span>Payments</span></a>
+        <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
+        <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
+    </div>
+</body>
+</html>

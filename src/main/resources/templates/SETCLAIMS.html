@@ -1,603 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance Claim Form</title>
-    <link rel="stylesheet" href="styles.css">
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Insurance Claim Form</title>
+	<link rel="stylesheet" href="styles.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f5f5f5;
+		}
 
-header {
-    background-color: #007acc;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+		
 
-h1, h2 {
-    color: #007acc;
-}
+		h1,
+		h2 {
+			color: #007acc;
+		}
 
-#companyLogo {
-    width: 80px;
-    height: auto;
-    margin-right: 10px;
-}
+		#companyLogo {
+			width: 80px;
+			height: auto;
+			margin-right: 10px;
+		}
 
-#companyName {
-    font-size: 18px;
-    margin-top: 5px;
-}
+		#companyName {
+			font-size: 18px;
+			margin-top: 5px;
+		}
 
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+		main {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: white;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
 
-/* Added margin-bottom for input fields */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="date"],
-select,
-textarea,
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px; /* Added margin-bottom */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+		/* Added margin-bottom for input fields */
+		input[type="text"],
+		input[type="email"],
+		input[type="tel"],
+		input[type="number"],
+		input[type="date"],
+		select,
+		textarea,
+		input[type="file"] {
+			width: 100%;
+			padding: 10px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			/* Added margin-bottom */
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
 
-button[type="submit"] {
-    background-color: #007acc;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
+		button[type="submit"] {
+			background-color: #007acc;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: bold;
+		}
 
-footer {
-    background-color: #007acc;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
+		
+		.form-section {
+			margin-bottom: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
 
-.form-section {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+		.form-section h2 {
+			color: #007acc;
+			width: 100%;
+		}
 
-.form-section h2 {
-    color: #007acc;
-    width: 100%;
-}
+		.form-section label {
+			display: inline-block;
+			font-weight: bold;
+			margin-right: 10px;
+		}
 
-.form-section label {
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 10px;
-}
+		.form-section input[type="file"] {
+			margin-top: 10px;
+		}
 
-.form-section input[type="file"] {
-    margin-top: 10px;
-}
+		.document-row {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+		}
 
-.document-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+		.document-row input[type="text"],
+		.document-row input[type="number"],
+		.document-row input[type="file"],
+		.document-row input[type="date"] {
+			margin-right: 10px;
+		}
 
-.document-row input[type="text"],
-.document-row input[type="number"],
-.document-row input[type="file"],
-.document-row input[type="date"] {
-    margin-right: 10px;
-}
+		.remove-document-button {
+			background-color: #f00;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			border-radius: 4px;
+			cursor: pointer;
+		}
 
-.remove-document-button {
-    background-color: #f00;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+		.input-group {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+		}
 
-.input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+		.input-group label {
+			width: 150px;
+			font-weight: bold;
+		}
 
-.input-group label {
-    width: 150px;
-    font-weight: bold;
-}
-  /* Sidebar Styles */
-        .sidebar {
-            background:  #1976D2;
-            padding-top: 0px;
-            position: fixed;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            margin-top: 0px;
-        }
-
-        .sidebar .profile_image {
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-            margin: 0 auto;
-            margin-bottom: 10px;
-        }
-
-        .sidebar h4 {
-            color: #ccc;
-            text-align: center;
-            margin: 0;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a {
-            color: #fff;
-            display: block;
-            width: 100%;
-            line-height: 60px;
-            text-decoration: none;
-            padding-left: 40px;
-            box-sizing: border-box;
-            transition: 0.5s;
-        }
-
-        .sidebar a:hover {
-            background: #19B3D3;
-        }
-
-        .sidebar i {
-            padding-right: 10px;
-        }
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-}
-
-header {
-    background-color: #007acc;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
- 
-
-h1, h2 {
-    color: #007acc;
-}
-
-#companyLogo {
-    width: 80px;
-    height: auto;
-    margin-right: 10px;
-}
-
-#companyName {
-    font-size: 18px;
-    margin-top: 5px;
-}
-
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Added margin-bottom for input fields */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="date"],
-input[type="button"],
-select,
-textarea,
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px; /* Added margin-bottom */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-input[type="button"]{
-    background-color: #007acc;
-	 color: white;
-}
-
-button[type="submit"] {
-    background-color: #007acc;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-footer {
-    background-color: #007acc;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
-
-.form-section {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.form-section h2 {
-    color: #007acc;
-    width: 100%;
-}
-
-.form-section label {
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.form-section input[type="file"] {
-    margin-top: 10px;
-}
-
-.document-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.document-row input[type="text"],
-.document-row input[type="number"],
-.document-row input[type="file"],
-.document-row input[type="date"],
-.document-row input[type="button"],
-select {
-    margin-right: 10px;
-}
-
-#addDocumentButton{
-padding: 10px 20px; /* Add padding to the button */
-    background-color: #007acc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.remove-document-button {
-    background-color: #f00;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.input-group label {
-    width: 150px;
-    font-weight: bold;
-}
-.input-container {
-    display: flex; /* Use flexbox to make children inline */
-    align-items: center; /* Vertically center children */
-}
-
-.input-container input[type="text"] {
-    flex: 1; /* Allow the input to grow and fill available space */
-    margin-right: 10px; /* Add some spacing between input and button */
-}
-.input-container {
-    display: flex; /* Use flexbox to arrange input and button horizontally */
-    align-items: center; /* Vertically center input and button */
-    margin-bottom: 20px; /* Add some spacing below the input container */
-}
+		
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f5f5f5;
+		}
 
 
 
-/* Style the button */
-.input-container button {
-    padding: 10px 150px; /* Add padding to the button */
-    background-color: #007acc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
 
-/* Style the label for "Members" */
-label[for="members"] {
-    display: block; /* Ensure the label is on a new line */
-    margin-bottom: 10px; /* Add some spacing below the label */
-}
+		h1,
+		h2 {
+			color: #007acc;
+		}
 
-/* Style the select field for "Members" */
-#members {
-    width: 100%; /* Make the select field full-width */
-    padding: 10px; /* Add padding to the select field */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-label[for="policyIdId"] {
-    display: block; 
-    margin-bottom: 10px; 
-}
-label[for="members"] {
-    margin-bottom: 10px;
-  
-    width: 150px; 
-}
-  header {
-            background-color: #007acc;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed; 
-            top: 0;
-            left: 0; 
-            width: 100%; 
-            z-index: 1000;
-        }
+		#companyLogo {
+			width: 80px;
+			height: auto;
+			margin-right: 10px;
+		}
 
-        /* Style for the footer */
-        footer {
-            background-color: #007acc; 
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            left: 0; 
-            width: 100%; /* Full width */
-            z-index: 1000;
-        }
-.content {
-            padding: 80px;
-        }
+		#companyName {
+			font-size: 18px;
+			margin-top: 5px;
+		}
 
-       
+		main {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: white;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
 
-</style>
+		/* Added margin-bottom for input fields */
+		input[type="text"],
+		input[type="email"],
+		input[type="tel"],
+		input[type="number"],
+		input[type="date"],
+		input[type="button"],
+		select,
+		textarea,
+		input[type="file"] {
+			width: 100%;
+			padding: 10px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			/* Added margin-bottom */
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		input[type="button"] {
+			background-color: #007acc;
+			color: white;
+		}
+
+		button[type="submit"] {
+			background-color: #007acc;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		
+		.form-section {
+			margin-bottom: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.form-section h2 {
+			color: #007acc;
+			width: 100%;
+		}
+
+		.form-section label {
+			display: inline-block;
+			font-weight: bold;
+			margin-right: 10px;
+		}
+
+		.form-section input[type="file"] {
+			margin-top: 10px;
+		}
+
+		.document-row {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+		}
+
+		.document-row input[type="text"],
+		.document-row input[type="number"],
+		.document-row input[type="file"],
+		.document-row input[type="date"],
+		.document-row input[type="button"],
+		select {
+			margin-right: 10px;
+		}
+
+		#addDocumentButton {
+			padding: 10px 20px;
+			/* Add padding to the button */
+			background-color: #007acc;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		.remove-document-button {
+			background-color: #f00;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.input-group {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+		}
+
+		.input-group label {
+			width: 150px;
+			font-weight: bold;
+		}
+
+		.input-container {
+			display: flex;
+			/* Use flexbox to make children inline */
+			align-items: center;
+			/* Vertically center children */
+		}
+
+		.input-container input[type="text"] {
+			flex: 1;
+			/* Allow the input to grow and fill available space */
+			margin-right: 10px;
+			/* Add some spacing between input and button */
+		}
+
+		.input-container {
+			display: flex;
+			/* Use flexbox to arrange input and button horizontally */
+			align-items: center;
+			/* Vertically center input and button */
+			margin-bottom: 20px;
+			/* Add some spacing below the input container */
+		}
+
+
+
+		/* Style the button */
+		.input-container button {
+			padding: 10px 150px;
+			/* Add padding to the button */
+			background-color: #007acc;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		/* Style the label for "Members" */
+		label[for="members"] {
+			display: block;
+			/* Ensure the label is on a new line */
+			margin-bottom: 10px;
+			/* Add some spacing below the label */
+		}
+
+		/* Style the select field for "Members" */
+		#members {
+			width: 100%;
+			/* Make the select field full-width */
+			padding: 10px;
+			/* Add padding to the select field */
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		label[for="policyIdId"] {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		label[for="members"] {
+			margin-bottom: 10px;
+
+			width: 150px;
+		}
+
+		.content {
+			padding: 80px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="header.css">
+	<link rel="stylesheet" type="text/css" href="footer.css">
+	<link rel="stylesheet" type="text/css" href="side.css">
+
 </head>
+
 <body>
 
-<header>
-
-    <img src="https://cdn.imgbin.com/22/2/6/imgbin-cigna-logo-insurance-company-health-care-az-breaking-news-alerts-wLCdsy2cvEp6htJxr1Pna0qXL.jpg" alt="Company Logo" id="companyLogo">
-    <div id="companyName">IMS Hospital</div>
-</header>
-<div class="content">
-   <div class="sidebar">
-        <center>
-     <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
-        </center>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-        <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
-        <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
-        <a th:href="@{/start}"><i class="fas fa-list-alt"></i><span>List Packages</span></a>
-        <a th:href="@{/payments}"><i class="fas fa-product-hunt"></i><span>Payments</span></a>
-        <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
-        <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
-    </div>
-
-<main>
-    <form action="/claimbills" id="claimForm" method="post" enctype="multipart/form-data">
-       <section id="personalInfo" class="form-section">
-    <h2>Patient Information</h2>
-    
-    
-    <label for="patientName">Patient Name:</label>
-    <input type="text" id="patientName" name="patientName" required>
-    <label for="policyIdId">Policy Id:</label>
-    
-    <input type="text" id="policyIdId" name="clamIplcId" required>
-    <input type="button" id="myButton" value="Get Members">
-	
-	
-	<label for="members">Members:</label>
-    <select id="members" name="members">
-    
-    </select>
+	<div th:replace="header :: body"></div> 
+	<div class="content">
+		<div th:replace="side :: body"></div> <br><br>
+		<main style="margin-left:25%">
+			<form action="/claimbills" id="claimForm" method="post" enctype="multipart/form-data">
+				<section id="personalInfo" class="form-section">
+					<h2>Patient Information</h2>
 
 
-        
+					<label for="patientName">Patient Name:</label>
+					<input type="text" id="patientName" name="patientName" required>
+					<label for="policyIdId">Policy Id:</label>
 
-    <label for="relation">Relation:</label>
-    <input type="text" id="relation" name="relation" required>
-
-    <label for="joinedDate">Joined Date:</label>
-    <input type="date" id="joinedDate" name="joinedDate" required>
-   
-    
-    <label for="dateOfBirth">DateOfBirth:</label>
-    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
-    
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-    </select>
-    
-    <label for="contactNumber">Contact Number:</label>
-    <input type="tel" id="contactNumber" name="contactNumber" required>
-
-    <label for="address">Address:</label>
-    <input type="text" id="address" name="address" required>
-
-    <label for="disease">Disease:</label>
-    <input type="text" id="disease" name="disease" required>
-    
-    <label for="diagnosis">ICDCode:</label>
-    <input type="text" id="diagnosis" name="diagnosis" required>
-    
-    <label for="treatment">Treatment:</label>
-    <input type="text" id="treatment" name="treatment" required>
-    
-</section>
+					<input type="text" id="policyIdId" name="clamIplcId" required>
+					<input type="button" id="myButton" value="Get Members">
 
 
-        <section id="claimDetails" class="form-section">
-            <h2>Claim Details</h2>
-            <label for="policyNumber">Policy Number:</label>
-            <input type="text" id="policyNumber" name="clam" required>
+					<label for="members">Members:</label>
+					<select id="members" name="members">
 
-            <label for="claimDescription">Claim Description:</label>
-            <textarea id="claimDescription" name="claimDescription" rows="4" required></textarea>
-
-            <label for="billAmount">Claim Amount:</label>
-            <input type="number" id="billAmount" name="claimAmountRequested" required>
-        </section>
-
-        <section id="documentUpload" class="form-section">
-            <h2>Upload Documents</h2>
-            <div id="documentFields">
-                
-            </div>
-            <button type="button" id="addDocumentButton">Add Document</button>
-        </section>
-        <div align="center">
-            <button type="submit">Submit Claim</button>
-        </div>
-    </form>
-</main>
-</div>
-<footer>
-    &copy; 2023 Future Safe
-</footer>
-
-<script>
-
-document.getElementById("myButton").addEventListener("click", function () {
-  
-        event.preventDefault();
-        const id = document.getElementById("policyIdId").value;
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/getFamilyMembers?policy="+id, true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-            	var mem=document.getElementById("members");
-                const response = JSON.parse(xhr.responseText);
-                mem.innerHTML = "";
-                if (Array.isArray(response) && response.length > 0) {
-                    mem.innerHTML = "";
-                    for (let i = 0; i < response.length; i++) {
-                        const option = document.createElement("option");
-                        option.text = response[i];
-                        option.value = response[i];
-                        mem.appendChild(option);
-                    }
-                } else {
-                    window.alert("You are unable to apply for this claim.");
-                }
-            } 
-        };
-
-        xhr.send();
-    
-});
+					</select>
 
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const documentFields = document.getElementById("documentFields");
-        const addDocumentButton = document.getElementById("addDocumentButton");
 
-        addDocumentButton.addEventListener("click", function () {
-            const documentRow = createDocumentRow();
-            documentFields.appendChild(documentRow);
-        });
+					<label for="relation">Relation:</label>
+					<input type="text" id="relation" name="relation" required>
 
-        function createDocumentRow() {
-            const documentRow = document.createElement("div");
-            documentRow.classList.add("document-row");
+					<label for="joinedDate">Joined Date:</label>
+					<input type="date" id="joinedDate" name="joinedDate" required>
 
-            const documentNameInput = document.createElement("input");
-            documentNameInput.type = "text";
-            documentNameInput.name = "documentTitle";
-            documentNameInput.placeholder = "Document Name";
-            documentNameInput.required = true;
 
-            const documentAmountInput = document.createElement("input");
-            documentAmountInput.type = "number";
-            documentAmountInput.name = "claimAmount";
-            documentAmountInput.placeholder = "Amount";
-            documentAmountInput.required = true;
+					<label for="dateOfBirth">DateOfBirth:</label>
+					<input type="date" id="dateOfBirth" name="dateOfBirth" required>
 
-            const documentFileInput = document.createElement("input");
-            documentFileInput.type = "file";
-            documentFileInput.name = "file[]";
-            
-            documentFileInput.accept = ".pdf, .jpg, .png";
-            documentFileInput.required = true;
+					<label for="gender">Gender:</label>
+					<select id="gender" name="gender" required>
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+						<option value="other">Other</option>
+					</select>
 
-            const removeDocumentButton = document.createElement("button");
-            removeDocumentButton.type = "button";
-            removeDocumentButton.classList.add("remove-document-button");
-            removeDocumentButton.textContent = "Remove";
-            removeDocumentButton.addEventListener("click", function () {
-                documentFields.removeChild(documentRow);
-            });
+					<label for="contactNumber">Contact Number:</label>
+					<input type="tel" id="contactNumber" name="contactNumber" required>
 
-            documentRow.appendChild(documentNameInput);
-            documentRow.appendChild(documentAmountInput);
-            documentRow.appendChild(documentFileInput);
-            documentRow.appendChild(removeDocumentButton);
+					<label for="address">Address:</label>
+					<input type="text" id="address" name="address" required>
 
-            return documentRow;
-        }
-    });
-</script>
+					<label for="disease">Disease:</label>
+					<input type="text" id="disease" name="disease" required>
+
+					<label for="diagnosis">ICDCode:</label>
+					<input type="text" id="diagnosis" name="diagnosis" required>
+
+					<label for="treatment">Treatment:</label>
+					<input type="text" id="treatment" name="treatment" required>
+
+				</section>
+
+
+				<section id="claimDetails" class="form-section">
+					<h2>Claim Details</h2>
+					<label for="policyNumber">Policy Number:</label>
+					<input type="text" id="policyNumber" name="clam" required>
+
+					<label for="claimDescription">Claim Description:</label>
+					<textarea id="claimDescription" name="claimDescription" rows="4" required></textarea>
+
+					<label for="billAmount">Claim Amount:</label>
+					<input type="number" id="billAmount" name="claimAmountRequested" required>
+				</section>
+
+				<section id="documentUpload" class="form-section">
+					<h2>Upload Documents</h2>
+					<div id="documentFields">
+
+					</div>
+					<button type="button" id="addDocumentButton">Add Document</button>
+				</section>
+				<div align="center">
+					<button type="submit">Submit Claim</button>
+				</div>
+			</form>
+		</main>
+	</div>
+	<br><br><br><br><br><br><br><br><br><br>
+	<div th:replace="footer :: body"></div> <br><br>
+
+
+
+	<script>
+
+		document.getElementById("myButton").addEventListener("click", function () {
+
+			event.preventDefault();
+			const id = document.getElementById("policyIdId").value;
+			const xhr = new XMLHttpRequest();
+			xhr.open("GET", "/getFamilyMembers?policy=" + id, true);
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					var mem = document.getElementById("members");
+					const response = JSON.parse(xhr.responseText);
+					mem.innerHTML = "";
+					if (Array.isArray(response) && response.length > 0) {
+						mem.innerHTML = "";
+						for (let i = 0; i < response.length; i++) {
+							const option = document.createElement("option");
+							option.text = response[i];
+							option.value = response[i];
+							mem.appendChild(option);
+						}
+					} else {
+						window.alert("You are unable to apply for this claim.");
+					}
+				}
+			};
+
+			xhr.send();
+
+		});
+
+
+
+		document.addEventListener("DOMContentLoaded", function () {
+			const documentFields = document.getElementById("documentFields");
+			const addDocumentButton = document.getElementById("addDocumentButton");
+
+			addDocumentButton.addEventListener("click", function () {
+				const documentRow = createDocumentRow();
+				documentFields.appendChild(documentRow);
+			});
+
+			function createDocumentRow() {
+				const documentRow = document.createElement("div");
+				documentRow.classList.add("document-row");
+
+				const documentNameInput = document.createElement("input");
+				documentNameInput.type = "text";
+				documentNameInput.name = "documentTitle";
+				documentNameInput.placeholder = "Document Name";
+				documentNameInput.required = true;
+
+				const documentAmountInput = document.createElement("input");
+				documentAmountInput.type = "number";
+				documentAmountInput.name = "claimAmount";
+				documentAmountInput.placeholder = "Amount";
+				documentAmountInput.required = true;
+
+				const documentFileInput = document.createElement("input");
+				documentFileInput.type = "file";
+				documentFileInput.name = "file[]";
+
+				documentFileInput.accept = ".pdf, .jpg, .png";
+				documentFileInput.required = true;
+
+				const removeDocumentButton = document.createElement("button");
+				removeDocumentButton.type = "button";
+				removeDocumentButton.classList.add("remove-document-button");
+				removeDocumentButton.textContent = "Remove";
+				removeDocumentButton.addEventListener("click", function () {
+					documentFields.removeChild(documentRow);
+				});
+
+				documentRow.appendChild(documentNameInput);
+				documentRow.appendChild(documentAmountInput);
+				documentRow.appendChild(documentFileInput);
+				documentRow.appendChild(removeDocumentButton);
+
+				return documentRow;
+			}
+		});
+	</script>
 </body>
+
 </html>

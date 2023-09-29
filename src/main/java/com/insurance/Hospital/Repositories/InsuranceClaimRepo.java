@@ -17,9 +17,9 @@ import com.insurance.Hospital.models.ReUpload;
 import com.insurance.Hospital.models.Uploads;
 import com.insurance.Hospital.rowmappers.ClaimMapper;
 import com.insurance.Hospital.rowmappers.PolicyMembersRowMapper;
-import com.insurance.Hospital.rowmappers.UploadsRowMapper;
 import com.insurance.Hospital.rowmappers.ReUploadRowMapper;
 import com.insurance.Hospital.rowmappers.RowMap;
+import com.insurance.Hospital.rowmappers.UploadsRowMapper;
 
 @Component
 public class InsuranceClaimRepo implements InsuranceClaim {
@@ -52,7 +52,7 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 
 	// New Claim
 
-	private String SQL_INSERT_CLAIM = "insert into _Claims(clam_source,clam_type,clam_date,clam_iplc_id) values(?,?,?,?)";
+	private String SQL_INSERT_CLAIM = "insert into _Claims(clam_source,clam_type,clam_date,clam_amount_requested,clam_iplc_id,pay_status,hosp_name) values(?,?,?,?,?,?,?)";
 	private String SQL_INSERT_CLAIMBill = "insert into Claim_Bills(clam_id,clbl_document_title,clbl_document_path) values(?,?,?)";
 
 	@Override
@@ -68,13 +68,13 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 	}
 
 	@Override
-	public void addClaim(int i) {
+	public void addClaim(int i, double requestAmount, String hospname) {
 		try {
 			String dateOfBirth = "3003-03-30";
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utilDate = dateFormat.parse(dateOfBirth);
 			Date date = new Date(utilDate.getTime());
-			jdbcTemplate.update(SQL_INSERT_CLAIM, "HSPT", "DRCT", date, i);
+			jdbcTemplate.update(SQL_INSERT_CLAIM, "HSPT", "DRCT", date, requestAmount, i, "pending...", hospname);
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -103,38 +103,37 @@ public class InsuranceClaimRepo implements InsuranceClaim {
 				"select ipcm_mindex,iplc_id, ipcm_membername, ipcm_relation from insurancepolicycoveragemembers",
 				new PolicyMembersRowMapper());
 	}
-		
-	
+
 	//////////////////////////////
-	
-	//Reupload
-	
-	 @Override
-		public void addRequiredUploads(ReUpload upload) {
-			String query = "insert into reuploads(claimId,name,type,Status,description) values(?,?,?,?,?)";
-			Object[] values = { upload.getClaimId(), upload.getName(), upload.getType(), upload.getStatus(),
-					upload.getDescription() };
-			jdbcTemplate.update(query, values);
-		}
 
-		@Override
-		public List<ReUpload> getAllReUploads(int id) {
+	// Reupload
 
-			return jdbcTemplate.query("select * from reuploads where claimId="+id, new ReUploadRowMapper());
-		}
+	@Override
+	public void addRequiredUploads(ReUpload upload) {
+		String query = "insert into reuploads(claimId,name,type,Status,description) values(?,?,?,?,?)";
+		Object[] values = { upload.getClaimId(), upload.getName(), upload.getType(), upload.getStatus(),
+				upload.getDescription() };
+		jdbcTemplate.update(query, values);
+	}
 
-		@Override
-		public void addUploads(Uploads up) {
+	@Override
+	public List<ReUpload> getAllReUploads(int id) {
 
-			System.out.println("jdbc");
-			String query = "insert into uploads(uploadId,reuploadId,claimId,data,type) values(?,?,?,?)";
-			Object[] values = { up.getUploadId(), up.getReUploadId(), up.getClaimId(), up.getData(), up.getType() };
-			jdbcTemplate.update(query, values);
-		}
+		return jdbcTemplate.query("select * from reuploads where claimId=" + id, new ReUploadRowMapper());
+	}
 
-		@Override
-		public List<Uploads> getAllUploads(int claimId) {
-			
-			return jdbcTemplate.query("select * from uploads where claimId="+claimId, new UploadsRowMapper());
-		}
+	@Override
+	public void addUploads(Uploads up) {
+
+		System.out.println("jdbc");
+		String query = "insert into uploads(uploadId,reuploadId,claimId,data,type) values(?,?,?,?,?)";
+		Object[] values = { up.getUploadId(), up.getReUploadId(), up.getClaimId(), up.getData(), up.getType() };
+		jdbcTemplate.update(query, values);
+	}
+
+	@Override
+	public List<Uploads> getAllUploads(int claimId) {
+
+		return jdbcTemplate.query("select * from uploads where claimId=" + claimId, new UploadsRowMapper());
+	}
 }

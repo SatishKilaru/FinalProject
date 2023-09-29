@@ -14,21 +14,15 @@
         /* styles.css */
 
         /* Apply styles to the header */
-        header {
-           
-            padding: 10px;
-            /* Add some padding */
-            text-align: center;
-            /* Center-align the text */
-        }
+       
 
         /* Apply styles to the h1 heading */
         h1 {
-            font-size: 24px;
-            /* Change the font size */
-            margin-bottom: 10px;
-            /* Add some spacing at the bottom */
-        }
+    font-size: 24px;
+    text-align: center; /* Center the text horizontally */
+    line-height: 1.5; /* Center the text vertically */
+    margin-right: 10px; /* Add some spacing at the right */
+}
 
         /* Apply styles to the table */
         table {
@@ -100,84 +94,21 @@
             border: 1px solid #ddd;
             /* Add a border */
         }
-       header {
-		   
-	background-color: 	blue;
-  color:white;
-  text-align: center;
-  padding: 10px;
-	height:60px;
-  top: 0; /* Stick to the top of the viewport */
-  left: 0; /* Stick to the left */
-  width: 100%; /* Full width */
-  z-index: 1000;
-	
-}
-/* Sidebar Styles */
-        .sidebar {
-            background:  #1976D2;
-            padding-top: 80px;
-            position: fixed;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            margin-top: 0px;
-        }
+       
 
-        .sidebar .profile_image {
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-            margin: 0 auto;
-            margin-bottom: 10px;
-        }
-
-        .sidebar h4 {
-            color: #ccc;
-            text-align: center;
-            margin: 0;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a {
-            color: #fff;
-            display: block;
-            width: 100%;
-            line-height: 60px;
-            text-decoration: none;
-            padding-left: 40px;
-            box-sizing: border-box;
-            transition: 0.5s;
-        }
-
-        .sidebar a:hover {
-            background: #19B3D3;
-        }
-
-        .sidebar i {
-            padding-right: 10px;
-        }
     </style>
+    <link rel="stylesheet" type="text/css" href="header.css">
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" type="text/css" href="side.css">
   </head>
   <body>
-  
-   
-        <header><b>Insurance Packages List</b></header>
-	<div class="sidebar">
-        <center>
-     <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
-        </center>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-        <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
-        <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
-        <a th:href="@{/start}"><i class="fas fa-list-alt"></i><span>List Packages</span></a>
-        <a th:href="@{/payments}"><i class="fas fa-product-hunt"></i><span>Payments</span></a>
-        <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
-        <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
-    </div>
+   <div th:replace="header :: body"></div><br><br>
 
-    <form action="filteredpackages" style="margin-left:300px;">
+    <div th:replace="side :: body"></div> <br><br><br>
+   
+        <h1><b>Insurance Packages List</b></h1>
+	
+    <form action="filteredpackages" style="margin-left:400px;">
 		Status:
 		<select name="status" id="status" >
 			<option name="ALL">ALL</option>
@@ -190,10 +121,10 @@
     
 	</form>
 <br>
-	<form action="excel" style="margin-left:300px;">
+	<form action="excel" style="margin-left:400px;">
 		<input type="hidden" id="statu" name="status">
-		<input type="hidden" id="ag" name="age">
-		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Download" onclick="downloadExcel()" id="down" class="btn btn-success" >
+		<input type="hidden" id="ag" name="age">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="DownloadExcel" onclick="downloadExcel()" id="down" class="btn btn-success" style="margin-left:200px;">
 	</form>
 
 	<section style="margin-left:280px;">
@@ -231,18 +162,18 @@
 		</table>
 	</section>
 
-	<footer>
-		<!-- Add footer content if needed -->
-	</footer>
+
 	<script>
 		function downloadExcel() {
 			var status = document.getElementById("status").value;
 			var age = document.getElementById("age").value;
 			document.getElementById("statu").value = status;
 			document.getElementById("ag").value = age;
-			alert(status + age);
+		
 		}
 	</script>
+	    <div th:replace="footer :: body"></div> <br><br>
+
 </body>
 
 </html>

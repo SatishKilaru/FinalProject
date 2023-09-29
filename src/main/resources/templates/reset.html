@@ -19,7 +19,7 @@
             justify-content: center;
             align-items: center;
             letter-spacing: 1px;
-            background-color: #f0f0f0; /* Background color */
+            /* Background color */
         }
 
         .login-form-container {
@@ -153,28 +153,14 @@
             margin-top: 10px;
             text-align: center;
         }
-    .header {
-	background-color: 	deepskyblue;
-  color:black;
-  text-align: center;
-  padding: 30px;
-  position: fixed; /* Fixed position at the top */
-  top: 0; /* Stick to the top of the viewport */
-  left: 0; /* Stick to the left */
-  width: 100%; /* Full width */
-  z-index: 1000;
-	
-}
-body {
-    background-color: black;
-    /* You can also set other styles for the body element if needed */
-}
-    </style>
+  
+
+    </style><link rel="stylesheet" type="text/css" href="header.css">
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" type="text/css" href="side.css">
   </head>
   <body>
-  <div class="header bg-dark text-white py-3">
-			<h1 class="text-center">IMS Hospital</h1>
-		</div><br><br><br>
+  <div th:replace="header :: body"></div><br><br><br>
     <div class="login-form-container" style="margin-top: 150px;">
         <form id="myForm" action="reset" method="post" class="login-form">
         

@@ -57,40 +57,40 @@ public class InsuranceClaimController {
 	@RequestMapping(value = "/claimbills", method = RequestMethod.POST)
 	public String claimData(@RequestParam("file[]") MultipartFile[] files, Claim claim, ClaimApplication application,
 			Model model) {
-		return "index";
-		// claimService.addClaimApplication(application);
-		// claimService.addClaim(claim.getClamIplcId());
-		// Claim clm_id = claimService.getClaimByid(claim.getClamIplcId());
-		// int cid = clm_id.getClamId();
-		// String uploadDir = "src/main/resources/static/file";
-		//
-		// try {
-		// // Create the target directory if it doesn't exist
-		// Files.createDirectories(Paths.get(uploadDir));
-		//
-		// for (MultipartFile file : files) {
-		// // Get the original file name
-		// String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		//
-		// // Create the target file path within the directory
-		// Path targetLocation = Paths.get(uploadDir).resolve(fileName);
-		//
-		// // Copy the file to the target location
-		// Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-		//
-		// String fullPath = targetLocation.toAbsolutePath().toString();
-		//
-		// claimService.addClaimBills(file.getOriginalFilename(), fullPath, cid);
-		//
-		// }
-		//
-		// // After successfully storing all files, you can redirect to a success page or return a response accordingly
-		// return "index";
-		// } catch (IOException ex) {
-		// ex.printStackTrace();
-		//
-		// }
 
+		claimService.addClaimApplication(application);
+		claimService.addClaim(claim.getClamIplcId(), application.getClaimAmountRequested(), claim.getHospName());
+		Claim clm_id = claimService.getClaimByid(claim.getClamIplcId());
+		int cid = clm_id.getClamId();
+		String uploadDir = "src/main/resources/static/file";
+
+		try {
+			// Create the target directory if it doesn't exist
+			Files.createDirectories(Paths.get(uploadDir));
+
+			for (MultipartFile file : files) {
+				// Get the original file name
+				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+				// Create the target file path within the directory
+				Path targetLocation = Paths.get(uploadDir).resolve(fileName);
+
+				// Copy the file to the target location
+				Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+				String fullPath = targetLocation.toAbsolutePath().toString();
+
+				claimService.addClaimBills(file.getOriginalFilename(), fullPath, cid);
+
+			}
+
+			// After successfully storing all files, you can redirect to a success page or return a response accordingly
+			return "index";
+		} catch (IOException ex) {
+			ex.printStackTrace();
+
+		}
+		return "index";
 	}
 
 	@GetMapping(value = "/getFamilyMembers")
@@ -184,29 +184,28 @@ public class InsuranceClaimController {
 		workbook.write(outputStream);
 		outputStream.close();
 	}
-	
-	//Upload
-	
+
+	// Upload
+
 	@GetMapping(value = "/getrequired")
 	public String getRequiredUploads(@RequestParam("claimid") int id, Model model) {
-	    model.addAttribute("reupload", claimService.getAllReUploads(id));
-	    model.addAttribute("claimid", id);
-	    return "update";
+		model.addAttribute("reupload", claimService.getAllReUploads(id));
+		model.addAttribute("claimid", id);
+		return "update";
 	}
 
-
 	@PostMapping(value = "/adduploads")
-	public String addUploads(@RequestParam("claimid") String id, MultipartHttpServletRequest request,Model model) {
+	public String addUploads(@RequestParam("claimid") String id, MultipartHttpServletRequest request, Model model) {
 
 		int claimId = Integer.parseInt(id);
 		int index = 1;
 
 		List<ReUpload> list = claimService.getAllReUploads(claimId);
 		List<Uploads> list2 = claimService.getAllUploads(claimId);
-		
-		if(list2.size()>0) {
-		
-			index=list2.get(list2.size()).getReUploadId();
+
+		if (list2.size() > 0) {
+
+			index = list2.get(list2.size()).getReUploadId();
 		}
 		for (ReUpload upload : list) {
 			if (upload.getClaimId() == claimId) {
@@ -235,6 +234,7 @@ public class InsuranceClaimController {
 							up.setType("file");
 
 							claimService.addUploads(up);
+							claimService.updateUploads();
 
 						} catch (IOException ex) {
 							ex.printStackTrace();

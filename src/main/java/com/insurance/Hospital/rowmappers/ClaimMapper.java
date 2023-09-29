@@ -24,7 +24,7 @@ public class ClaimMapper implements RowMapper<Claim> {
 		clam.setClamProcessedBy(rs.getInt("clam_processed_by"));
 		clam.setClamRemarks(rs.getString("clam_remarks"));
 		clam.setClamStatus(rs.getString("clam_status"));
-
+		clam.setPayStatus((rs.getString(12)));
 		return clam;
 
 	}

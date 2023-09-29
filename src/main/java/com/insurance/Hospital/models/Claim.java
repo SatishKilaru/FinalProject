@@ -10,10 +10,30 @@ public class Claim {
 	private double clamAmountRequested;
 	private int clamIplcId;
 	private double clamProcessedAmount;
+
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
 	private Date clamProcessedDate;
 	private int clamProcessedBy;
 	private String clamRemarks;
 	private String clamStatus;
+	private String payStatus;
+
+	public String getHospName() {
+		return hospName;
+	}
+
+	public void setHospName(String hospName) {
+		this.hospName = hospName;
+	}
+
+	private String hospName;
 
 	// Default constructor
 	public Claim() {

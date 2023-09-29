@@ -29,8 +29,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     font-family: "poppins";
-    background: var(--background);
-    color: var(--color);
+   
     letter-spacing: 1px;
     transition: background 0.2s ease;
     -webkit-transition: background 0.2s ease;
@@ -53,7 +52,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 105vh;
 }
 
 .login-container {
@@ -152,27 +151,7 @@ h1 {
     width: 90%;
 }
 
-.circle-one {
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transform: translate(-45%, -45%);
-    -webkit-transform: translate(-45%, -45%);
-    -moz-transform: translate(-45%, -45%);
-    -ms-transform: translate(-45%, -45%);
-    -o-transform: translate(-45%, -45%);
-}
 
-.circle-two {
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    transform: translate(45%, 45%);
-    -webkit-transform: translate(45%, 45%);
-    -moz-transform: translate(45%, 45%);
-    -ms-transform: translate(45%, 45%);
-    -o-transform: translate(45%, 45%);
-}
 
 .register-forget {
     margin: 1rem 0;
@@ -180,7 +159,7 @@ h1 {
     justify-content: space-between;
 }
 .opacity {
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .theme-btn-container {
@@ -228,31 +207,16 @@ h1 {
         -o-transform: scale(1);
     }
 }
-   .header {
-	background-color: 	deepskyblue;
-  color:black;
-  text-align: center;
-  padding: 10px;
- /* Fixed position at the top */
-  top: 0; /* Stick to the top of the viewport */
-  left: 0; /* Stick to the left */
-  width: 100%; /* Full width */
-  z-index: 1000;
-	
-}
-body {
-    background-color: black;
-    /* You can also set other styles for the body element if needed */
-}
     </style>
+    <link rel="stylesheet" type="text/css" href="header.css">
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" type="text/css" href="side.css">
   </head>
   <body>
-  <div class="header bg-dark text-white py-3">
-			<h1 class="text-center">IMS Hospital</h1>
-		</div>
+   <div th:replace="header :: body"></div> <br><br>
   <section class="container">
         <div class="login-container">
-            <div class="circle circle-one"></div>
+         
             <div class="form-container">
                          <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
              
@@ -273,14 +237,13 @@ body {
                         <span th:text="${errorMessage}"></span>
                     </div>
                     <div class="footer">
-                        <a id="btn2" th:href="@{/forgotpassword}">Forgot password..?</a>
+                        <a id="btn2" style="color:black" th:href="@{/forgotpassword}"><b>Forgot password..?</b></a>
                     </div>
                 </form>
             </div>
-            <div class="circle circle-two"></div>
+          
         </div>
     </section>
-
     <!-- Include Thymeleaf JavaScript dependencies if needed -->
     <!-- Example: <script src="https://cdnjs.cloudflare.com/ajax/libs/thymeleaf/3.0.12.RELEASE/thymeleaf.js"></script> -->
 

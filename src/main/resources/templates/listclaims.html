@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>Employee List</title>
-	<style>
-		table {
+    <meta charset="UTF-8">
+    <title>Payments</title>
+    <style>
+        /* Global Styles */
+        table {
 			margin-left:260px;
 			width: 80%;
 			border-collapse: collapse;
@@ -29,147 +29,129 @@
 		.text-center {
 			text-align: center;
 		}
-   .header {
-	background-color: blue;
-  color:white;
-  text-align: center;
-  padding: 10px;
-  position: fixed; /* Fixed position at the top */
-  top: 0; /* Stick to the top of the viewport */
-  left: 0; /* Stick to the left */
-  width: 100%; /* Full width */
-  z-index: 1000;
-	
-}
-/* Sidebar Styles */
-        .sidebar {
-            background:  #1976D2;
-            padding-top: 80px;
-            position: fixed;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            margin-top: 0px;
-        }
 
-        .sidebar .profile_image {
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-            margin: 0 auto;
-            margin-bottom: 10px;
-        }
-
-        .sidebar h4 {
-            color: #ccc;
+        /* Form Styles */
+        .filter {
+            margin-top: 20px;
             text-align: center;
-            margin: 0;
-            margin-bottom: 20px;
         }
 
-        .sidebar a {
+        select, input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button[type="submit"], .back-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
             color: #fff;
-            display: block;
-            width: 100%;
-            line-height: 60px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-button {
+            background-color: #333;
+            margin-left: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+
+        /* Link Styles */
+        a {
             text-decoration: none;
-            padding-left: 40px;
-            box-sizing: border-box;
-            transition: 0.5s;
+            color: #007bff;
         }
 
-        .sidebar a:hover {
-            background: #19B3D3;
+        a:hover {
+            text-decoration: underline;
         }
+     
 
-        .sidebar i {
-            padding-right: 10px;
-        }
 
-    </style>
+  </style>
+  
+<link rel="stylesheet" type="text/css" href="header.css">
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" type="text/css" href="side.css">
   </head>
   <body>
-  <div class="header bg-dark text-white py-3">
-			<h1 class="text-center">IMS Hospital</h1>
-		</div>
-		<div class="sidebar">
-        <center>
-     <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
-        </center>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-        <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
-        <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
-        <a th:href="@{/start}"><i class="fas fa-list-alt"></i><span>List Packages</span></a>
-        <a th:href="@{/payments}"><i class="fas fa-product-hunt"></i><span>Payments</span></a>
-        <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
-        <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
+
+       <div th:replace="header :: body"></div><br><br><br>
+
+    <div th:replace="side :: body"></div> <br><br>
+   <div class="container">
+       <center>
+			<h1>Claims List</h1>
+		<form action="getFilteredClaims" method="get" id="filterForm">
+			<label><b>Status :</b>
+				<select name="status" id="statusSelect">
+					<option>select</option>
+					<option>Processed</option>
+					<option>Rejected</option>
+				</select>
+			</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" value="Filter" style="background-color:blue;color:white">
+		</form><br>
+		<form action="excel" method="post" id="excelForm">
+			<!-- Add a hidden input field to store the selected option -->
+			<input type="hidden" name="selectedStatus" id="selectedStatus" value="">
+			<input type="submit" value="Download" onclick="updateSelectedStatus()" style="background-color:green;color:white" >
+		</form><br>
+
+		<table border="1">
+			<tr>
+				<th>Claim Id</th>
+				<th>Claim Soucr</th>
+				<th>Claim Type</th>
+				<th>Claim Date</th>
+				<th>Claim Requested Amount</th>
+				<th>Claim Iplc Id</th>
+				<th>Claim ProcessedAmount</th>
+				<th>Claim Processed Date</th>
+				<th>Claim Processed By</th>
+				<th>Claim Remarks</th>
+				<th>Claim Status</th>
+			</tr>
+			<tr th:each="emp : ${claims}">
+				<td class="align-middle" th:text="${emp.clamId}"></td>
+				<td class="align-middle" th:text="${emp.clamSource}"></td>
+				<td class="align-middle" th:text="${emp.clamType}"></td>
+				<td class="align-middle" th:text="${emp.clamDate}"></td>
+				<td class="align-middle" th:text="${emp.clamAmountRequested}"></td>
+				<td class="align-middle" th:text="${emp.clamIplcId}"></td>
+				<td class="align-middle" th:text="${emp.clamProcessedAmount}"></td>
+				<td class="align-middle" th:text="${emp.clamProcessedDate}"></td>
+				<td class="align-middle" th:text="${emp.clamProcessedBy}"></td>
+				<td class="align-middle" th:text="${emp.clamRemarks}"></td>
+				<td class="align-middle" th:text="${emp.clamStatus}"></td>
+				<td class="align-middle">
+					<form action="viewClaim" method="post">
+						<input type="hidden" name="clamId" th:value="${emp.clamId}">
+						<button type="submit">View</button>
+					</form>
+				</td>
+			</tr>
+			<tr th:if="${claims.isEmpty()}">
+				<td class="text-center" colspan="5">No Records found. Add some...!</td>
+			</tr>
+		</table>
     </div>
-    	<h1>Claims List</h1>
-	<br>
-	<br><center>
-	<form action="getFilteredClaims" method="get" id="filterForm">
-		<label>Status :
-			<select name="status" id="statusSelect">
-				<option>select</option>
-				<option>Processed</option>
-				<option>Rejected</option>
-			</select>
-		</label>
-		<input type="submit" value="Filter">
-	</form>
-	<form action="excel" method="post" id="excelForm">
-		<!-- Add a hidden input field to store the selected option -->
-		<input type="hidden" name="selectedStatus" id="selectedStatus" value="">
-		<input type="submit" value="Download" onclick="updateSelectedStatus()">
-	</form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">function updateSelectedStatus() {
+				// Get the selected option value
+				const statusSelect = document.getElementById('statusSelect');
+				const selectedOption = statusSelect.options[statusSelect.selectedIndex].value;
 
-	<table border="1">
-		<tr>
-			<th>Claim Id</th>
-			<th>Claim Soucr</th>
-			<th>Claim Type</th>
-			<th>Claim Date</th>
-			<th>Claim Requested Amount</th>
-			<th>Claim Iplc Id</th>
-			<th>Claim ProcessedAmount</th>
-			<th>Claim Processed Date</th>
-			<th>Claim Processed By</th>
-			<th>Claim Remarks</th>
-			<th>Claim Status</th>
-		</tr>
-		<tr th:each="emp : ${claims}">
-			<td class="align-middle" th:text="${emp.clamId}"></td>
-			<td class="align-middle" th:text="${emp.clamSource}"></td>
-			<td class="align-middle" th:text="${emp.clamType}"></td>
-			<td class="align-middle" th:text="${emp.clamDate}"></td>
-			<td class="align-middle" th:text="${emp.clamAmountRequested}"></td>
-			<td class="align-middle" th:text="${emp.clamIplcId}"></td>
-			<td class="align-middle" th:text="${emp.clamProcessedAmount}"></td>
-			<td class="align-middle" th:text="${emp.clamProcessedDate}"></td>
-			<td class="align-middle" th:text="${emp.clamProcessedBy}"></td>
-			<td class="align-middle" th:text="${emp.clamRemarks}"></td>
-			<td class="align-middle" th:text="${emp.clamStatus}"></td>
-<td class="align-middle">
-    <form action="viewClaim" method="post">
-        <input type="hidden" name="clamId" th:value="${emp.clamId}">
-        <button type="submit">View</button>
-    </form>
-</td>
-		</tr>
-		<tr th:if="${claims.isEmpty()}">
-			<td class="text-center" colspan="5">No Records found. Add some...!</td>
-		</tr>
-	</table>
-	<script>
-		function updateSelectedStatus() {
-			// Get the selected option value
-			const statusSelect = document.getElementById('statusSelect');
-			const selectedOption = statusSelect.options[statusSelect.selectedIndex].value;
+				// Update the hidden input field with the selected option value
+				document.getElementById('selectedStatus').value = selectedOption;
+			}</script>
+ 	    <div th:replace="footer :: body"></div> <br><br>
 
-			// Update the hidden input field with the selected option value
-			document.getElementById('selectedStatus').value = selectedOption;
-		}
-	</script>
 </body>
 </html>

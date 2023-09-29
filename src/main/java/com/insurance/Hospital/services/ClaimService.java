@@ -10,8 +10,8 @@ import com.insurance.Hospital.contractors.InsuranceClaim;
 import com.insurance.Hospital.models.Claim;
 import com.insurance.Hospital.models.ClaimApplication;
 import com.insurance.Hospital.models.PolicyMembers;
-import com.insurance.Hospital.models.Uploads;
 import com.insurance.Hospital.models.ReUpload;
+import com.insurance.Hospital.models.Uploads;
 
 @Service
 public class ClaimService {
@@ -42,8 +42,8 @@ public class ClaimService {
 
 	}
 
-	public void addClaim(int clamIplcId) {
-		insuranceClaim.addClaim(clamIplcId);
+	public void addClaim(int clamIplcId, double requestAmount, String hospname) {
+		insuranceClaim.addClaim(clamIplcId, requestAmount, hospname);
 
 	}
 
@@ -68,8 +68,8 @@ public class ClaimService {
 		}
 		return names;
 	}
-	
-	//Upload
+
+	// Upload
 
 	public List<ReUpload> getAllReUploads(int id) {
 		return insuranceClaim.getAllReUploads(id);
@@ -81,8 +81,12 @@ public class ClaimService {
 
 	public void addUploads(Uploads up) {
 		insuranceClaim.addUploads(up);
-		
+
 	}
-	
+
+	public void updateUploads() {
+		// TODO Auto-generated method stub
+
+	}
 
 }

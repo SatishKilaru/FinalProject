@@ -17,51 +17,7 @@
             overflow-x: hidden; /* Hide horizontal scrollbar */
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-            background:  #1976D2;
-            padding-top: 40px;
-            position: fixed;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            margin-top: 60px;
-        }
-
-        .sidebar .profile_image {
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-            margin: 0 auto;
-            margin-bottom: 10px;
-        }
-
-        .sidebar h4 {
-            color: #ccc;
-            text-align: center;
-            margin: 0;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a {
-            color: #fff;
-            display: block;
-            width: 100%;
-            line-height: 60px;
-            text-decoration: none;
-            padding-left: 40px;
-            box-sizing: border-box;
-            transition: 0.5s;
-        }
-
-        .sidebar a:hover {
-            background: #19B3D3;
-        }
-
-        .sidebar i {
-            padding-right: 10px;
-        }
-
+       
         /* Content Styles */
         .content {
             margin-left: 250px; /* Same as sidebar width */
@@ -73,13 +29,7 @@
             margin-left: 15%;
         }
 
-        header {
-            background: #1976D2;
-            padding: 32px;
-            width: 100%;
-            position: fixed;
-            z-index: 1;
-        }
+       
 
         .left_area h3 {
             color: #fff;
@@ -150,6 +100,12 @@
         }
 
 .section {
+  font-size: 16px;
+            color: black;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+transform: translateY(-5px);
     display: inline-block;
     width: 30%;
     vertical-align: top;
@@ -159,6 +115,7 @@
 }
 
 .sections {
+transform: translateY(-5px);
     display: inline-block;
     width: 40%;
     vertical-align: top;
@@ -178,28 +135,17 @@
         
        
     </style>
-    <title>Left Top Menu Page</title>
+    <link rel="stylesheet" type="text/css" href="header.css">
+<link rel="stylesheet" type="text/css" href="footer.css">
+<link rel="stylesheet" type="text/css" href="side.css">
 </head>
 <body>
     <input type="checkbox" id="check">
-    <header>
-        <div class="left_area">
-            <h3 >Hospital Management</h3>
-        </div>
-    </header>
-    <div class="sidebar">
-        <center>
-     <img src="images/imgg.jpg" style="width: 100px; height: 100px;border-radius: 50%;">            <h4>Admin</h4>
-        </center>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Home</span></a>
-        <a th:href="@{/index}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-        <a th:href="@{/newclaim}"><i class="fas fa-users"></i><span>New claim</span></a>
-        <a th:href="@{/getAllClaims}"><i class="fas fa-list-alt"></i><span>List Claims</span></a>
-        <a th:href="@{/start}"><i class="fas fa-list-alt"></i><span>List Packages</span></a>
-        <a th:href="@{/payments}"><i class="fas fa-product-hunt"></i><span>Payments</span></a>
-        <a th:href="@{/index}"><i class="fas fa-question-circle"></i><span>About</span></a>
-        <a th:href="@{/}"><i class="fas fa-question-circle"></i><span>Log out</span></a>
-    </div>
+    
+       <div th:replace="header :: body"></div> <br><br>
+
+    <div th:replace="side :: body"></div> 
+   
   <div class="content">
    
     <div class="section">
@@ -311,5 +257,7 @@
             });
         });
     </script>
+        <div th:replace="footer :: body"></div> <br><br>
+
 </body>
 </html>

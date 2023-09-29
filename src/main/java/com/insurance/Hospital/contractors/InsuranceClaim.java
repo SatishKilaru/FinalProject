@@ -23,15 +23,15 @@ public interface InsuranceClaim {
 
 	void addClaimApplication(ClaimApplication application);
 
-	void addClaim(int clamIplcId);
+	void addClaim(int clamIplcId, double requestAmount, String hospname);
 
 	Claim getClaimByid(int clamIplcId);
 
 	void addClaimBills(String originalFilename, String fullPath, int cid);
 
 	List<PolicyMembers> getFamilyByPolicy(int id);
-	
-	//Upload
+
+	// Upload
 
 	void addRequiredUploads(ReUpload upload);
 
